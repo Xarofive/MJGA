@@ -249,16 +249,16 @@ Bytecode (.class)
 <div style="background: #e8f5e9; border: 1px solid #4caf50; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #2e7d32; margin-top: 0;">🧪 Практика #3</h4>
 
-<p>Посмотрите известные проекты и платформы на Java:</p>
+<p>Посмотрите известные проекты и платформы на Java (в некоторых странах доступ к ресурсу может быть ограничен):</p>
 
 <ul>
-	<li>Spring Framework</li>
-	<li>IntelliJ IDEA</li>
-	<li>Elasticsearch</li>
-	<li>Jenkins</li>
-	<li>Apache Kafka</li>
-	<li>Minecraft Server</li>
-	<li>Hibernate</li>
+	<li><a href="https://spring.io/projects/spring-framework" target="_blank">Spring Framework</a></li>
+	<li><a href="https://www.jetbrains.com/idea/" target="_blank">IntelliJ IDEA</a></li>
+	<li><a href="https://www.elastic.co/elasticsearch" target="_blank">Elasticsearch</a></li>
+	<li><a href="https://www.jenkins.io/" target="_blank">Jenkins</a></li>
+	<li><a href="https://kafka.apache.org/" target="_blank">Apache Kafka</a></li>
+	<li><a href="https://www.minecraft.net/en-us/download/server" target="_blank">Minecraft Server</a></li>
+	<li><a href="https://hibernate.org/orm/" target="_blank">Hibernate ORM</a></li>
 </ul>
 
 <p><strong>Задание:</strong> выберите 1–2 проекта и кратко опишите:</p>
