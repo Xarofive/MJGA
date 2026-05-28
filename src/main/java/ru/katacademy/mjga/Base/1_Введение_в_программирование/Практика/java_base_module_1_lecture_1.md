@@ -325,12 +325,12 @@ Bytecode (.class)
 <h3 style="color: #155724; margin-top: 0;">Чек-лист: Что вы теперь понимаете? 🚀</h3>
 
 <ul>
-	<li>☐ Понимаю, что такое программирование</li>
-	<li>☐ Могу объяснить, что такое программа</li>
-	<li>☐ Понимаю разницу между Java-кодом и bytecode</li>
-	<li>☐ Знаю, зачем нужна JVM</li>
-	<li>☐ Знаю, зачем нужен JDK</li>
-	<li>☐ Могу привести примеры проектов, где используется Java</li>
+	<li><label><input type="checkbox"> Понимаю, что такое программирование</label></li>
+	<li><label><input type="checkbox"> Могу объяснить, что такое программа</label></li>
+	<li><label><input type="checkbox"> Понимаю разницу между Java-кодом и bytecode</label></li>
+	<li><label><input type="checkbox"> Знаю, зачем нужна JVM</label></li>
+	<li><label><input type="checkbox"> Знаю, зачем нужен JDK</label></li>
+	<li><label><input type="checkbox"> Могу привести примеры проектов, где используется Java</label></li>
 </ul>
 </div>
 
