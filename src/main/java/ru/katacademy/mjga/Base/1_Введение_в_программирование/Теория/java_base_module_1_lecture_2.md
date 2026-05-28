@@ -30,16 +30,6 @@
 <p><strong>Цель лекции:</strong> за 20–30 минут получить рабочий результат: Java установлена, код написан, программа запускается.</p>
 </div>
 
-<div style="background: #f3e5f5; border: 1px solid #ce93d8; border-radius: 8px; padding: 20px; margin: 20px 0;">
-<h3 style="color: #6a1b9a; margin-top: 0;">🎧 Аудиообъяснение темы</h3>
-
-<p>Для лучшего понимания установки Java и настройки окружения прослушайте аудиоподкаст:</p>
-
-<p style="margin: 20px 0;"><a href="#" style="display: inline-block; background: #6a1b9a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать объяснение по настройке Java</a></p>
-
-<p style="font-size: 14px; color: #666;"><em>Откроется в новой вкладке. Можно прослушать до практики или после настройки окружения.</em></p>
-</div>
-
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎯 Что вы узнаете</h4>
 
