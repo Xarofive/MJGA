@@ -1,6 +1,6 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title></title>
-<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+<div style="max-width: 900px; margin: 0 auto; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
 <h1 style="text-align: center; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 15px;">Java Base: Введение в программирование на Java</h1>
 
 <p><strong>Java Base, Модуль 1, Лекция 1</strong></p>
