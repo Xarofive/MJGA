@@ -86,6 +86,7 @@ public class Main {
 
 <h2 style="color: #34495e; margin-top: 30px;">4. Безопасная подстрока по code points</h2>
 <p>Обычный <code>substring</code> принимает индексы UTF-16. Если параметры заданы в символах/code points, сначала переведите их в индексы UTF-16 через <code>offsetByCodePoints</code>.</p>
+<p><code>Math.min(start + length, total)</code> выбирает меньшее из двух чисел. Здесь это защита от выхода за конец строки: если запрошенная длина слишком большая, метод остановится на последнем доступном символе.</p>
 
 <pre style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px; padding: 15px; margin: 10px 0; overflow-x: auto;">
 <code class="language-java">public class Main {

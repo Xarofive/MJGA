@@ -25,6 +25,7 @@
 	<li><a href="#elements">Основные элементы программы</a></li>
 	<li><a href="#simple-program">Простая программа на Java</a></li>
 	<li><a href="#output">Вывод данных</a></li>
+	<li><a href="#escaping">Экранирование символов в строках</a></li>
 	<li><a href="#practice">Закрепление знаний</a></li>
 	<li><a href="#whats-next">Что дальше?</a></li>
 </ol>
@@ -126,6 +127,16 @@ System.out.print("Java");</pre>
 <pre style="margin: 0; font-family: 'SF Mono', Monaco, Consolas, monospace; line-height: 1.5;">
 Hello Java</pre>
 
+<h2 id="escaping" style="color: #34495e; margin-top: 30px;">Экранирование символов в строках</h2>
+
+<p>Строки в Java записываются в двойных кавычках. Если внутри текста нужно вывести саму двойную кавычку или обратный слэш, перед специальным символом ставят обратный слэш.</p>
+
+<pre style="margin: 0; font-family: 'SF Mono', Monaco, Consolas, monospace; line-height: 1.5;">
+System.out.println("Он сказал: \"Hello!\"");
+System.out.println("Путь: C:\\Java");</pre>
+
+<p>Запись <code>\"</code> выводит кавычку как часть текста, а <code>\\</code> выводит один обратный слэш. Если нужно напечатать сами символы <code>\n</code>, слэш тоже экранируют: <code>\\n</code>.</p>
+
 <h2 id="practice" style="color: #34495e; margin-top: 30px;">Закрепление знаний</h2>
 
 <p>После этой лекции вы сможете выполнить первые практические задачи курса:</p>
@@ -133,6 +144,7 @@ Hello Java</pre>
 <ul>
 	<li>написать текст в двойных кавычках;</li>
 	<li>использовать <code>System.out.println()</code>;</li>
+	<li>выводить кавычки и обратные слэши через экранирование;</li>
 	<li>создать класс <code>Main</code>;</li>
 	<li>создать метод <code>main()</code>;</li>
 	<li>запустить первую полную программу на Java.</li>

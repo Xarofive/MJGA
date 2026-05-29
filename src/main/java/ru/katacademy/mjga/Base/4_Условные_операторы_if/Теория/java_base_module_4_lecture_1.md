@@ -40,7 +40,7 @@
 <ul>
 	<li>переменные и типы данных <code>int</code>, <code>double</code>, <code>String</code>, <code>boolean</code>;</li>
 	<li>методы с параметрами и возвращаемым значением;</li>
-	<li>вывод через <code>System.out.println</code> и <code>System.out.printf</code>;</li>
+	<li>вывод через <code>System.out.println</code>;</li>
 	<li>структуру класса <code>Main</code> и метода <code>main</code>.</li>
 </ul>
 </div>
@@ -124,6 +124,7 @@ if (balance &gt;= price) {
     System.out.println("Недостаточно средств");
     System.out.printf("Не хватает: %.2f руб.%n", price - balance);
 }</code></pre>
+<p><code>System.out.printf</code> печатает текст по шаблону. Здесь <code>%.2f</code> означает дробное число с двумя знаками после точки, а <code>%n</code> добавляет перенос строки. Если форматирование пока кажется сложным, можно использовать обычный <code>System.out.println</code>; условный оператор от этого не меняется.</p>
 <p>Блок <code>else</code> выполняется только тогда, когда условие в <code>if</code> ложно.</p>
 
 <h2 id="chain" style="color: #34495e; margin-top: 30px;">5. Цепочка else if</h2>
@@ -162,6 +163,11 @@ if ((age &gt;= 18 &amp;&amp; hasTicket) || vip) {
 <p>Оператор <code>&amp;&amp;</code> выполняется раньше <code>||</code>. Если условие сложное, используйте скобки: так код читается быстрее и меньше риск ошибиться.</p>
 </div>
 
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #856404; margin-top: 0;">Почему в задачах запрещают <code>switch</code></h4>
+<p style="margin: 0;"><code>switch</code> &mdash; это другой оператор выбора. Он полезен для некоторых наборов фиксированных вариантов, но в этом модуле цель другая: научиться уверенно писать условия через <code>if</code>, <code>else if</code>, <code>else</code> и логические операторы.</p>
+</div>
+
 <h2 id="return" style="color: #34495e; margin-top: 30px;">7. Ранний return в методах</h2>
 <p>В задачах модуля часто нужно вернуть строку из метода. Можно использовать цепочку <code>if-else</code>, а можно делать ранний выход через <code>return</code>.</p>
 <pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 5px;"><code>static String scoreLabel(int score) {
@@ -180,6 +186,11 @@ if ((age &gt;= 18 &amp;&amp; hasTicket) || vip) {
     return "failed";
 }</code></pre>
 <p>После выполнения <code>return</code> метод сразу завершается. Код ниже в этом же методе уже не выполняется.</p>
+
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #856404; margin-top: 0;">Коротко про сравнение строк</h4>
+<p style="margin: 0;">Числа сравнивают через <code>==</code>, например <code>age == 18</code>. Для строк в Java используют метод <code>equals</code>: <code>text.equals("yes")</code>. Подробная работа со строками будет позже, но это правило полезно знать уже сейчас.</p>
+</div>
 
 <h2 id="mistakes" style="color: #34495e; margin-top: 30px;">8. Частые ошибки</h2>
 <table style="width: 100%; border-collapse: collapse;">

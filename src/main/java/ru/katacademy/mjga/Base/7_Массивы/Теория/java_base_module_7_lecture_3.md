@@ -32,6 +32,12 @@
 <p>Для успешного изучения темы полезно уверенно понимать массивы, индексы, циклы <code>for</code> и enhanced for, условные операторы и методы. В этой лекции мы работаем только с массивами: динамические структуры данных будут отдельной темой позже.</p>
 </div>
 
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #856404; margin-top: 0;">Коротко про <code>System.arraycopy</code> и <code>Math.min</code></h4>
+<p><code>System.arraycopy(src, srcPos, dst, dstPos, length)</code> копирует <code>length</code> элементов из массива <code>src</code> в массив <code>dst</code>. В этой лекции он нужен как готовый способ быстро скопировать часть массива.</p>
+<p style="margin-bottom: 0;"><code>Math.min(a, b)</code> возвращает меньшее из двух чисел. Например, <code>Math.min(10, 7)</code> вернёт <code>7</code>.</p>
+</div>
+
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎯 Чему вы научитесь</h4>
 
@@ -512,6 +518,7 @@ Arrays.sort(array);                       // сортировка массива
 Arrays.equals(a, b);                      // сравнение массивов по элементам
 System.arraycopy(src, srcPos, dst, dstPos, length); // быстрое копирование диапазона</code></pre>
 
+<p><code>Arrays.sort</code> сортирует массив на месте, то есть меняет исходный массив. <code>Arrays.equals</code> сравнивает массивы по элементам, а не по ссылкам.</p>
 <p style="margin-bottom: 0;">Ручные реализации важны для понимания алгоритмов и работы с индексами. Стандартные методы помогают сделать код короче, когда механизм уже понятен.</p>
 </div>
 

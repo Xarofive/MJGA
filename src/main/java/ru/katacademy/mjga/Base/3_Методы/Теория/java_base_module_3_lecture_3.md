@@ -99,6 +99,7 @@ static String makeGreeting(String name) {
 
 <h2 id="examples" style="color: #34495e; margin-top: 30px;">Примеры методов с возвратом</h2>
 <h3 style="color: #34495e;">Работа со строками</h3>
+<p><code>String.format</code> создаёт строку по шаблону. В примере <code>%.2f</code> означает дробное число с двумя знаками после точки. Это вспомогательный приём для красивого вывода цены; основная тема здесь &mdash; возврат строки из метода.</p>
 <pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 5px;"><code>public class Main {
     static String exclaim(String text) {
         return text + "!";
