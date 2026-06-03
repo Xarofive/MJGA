@@ -109,5 +109,7 @@ for (int value : unique) {
 	<li><label><input type="checkbox"> Я помню, что индексы начинаются с нуля</label></li>
 	<li><label><input type="checkbox"> Я понимаю, почему <code>ArrayList</code> помогает сохранить порядок элементов</label></li>
 </ul>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
+
 </div>
 </div>

@@ -1,5 +1,3 @@
-<p>&nbsp;</p>
-
 <div style="max-width: 900px; margin: 0 auto; padding: 20px; background: #f8f9fa;">
 <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow-x: auto;">
 <h1 style="text-align: center; color: #2c3e50;">Строки и текст в Java: UTF-16, байты и Unicode</h1>
@@ -50,7 +48,7 @@ public class Main {
     public static void main(String[] args) {
         String ascii = "Hello";
         String cyrillic = "Привет";
-        String emoji = "Go🚀";
+        String emoji = "Java🚀";
 
         System.out.println(ascii.length());
         System.out.println(ascii.getBytes(StandardCharsets.UTF_8).length);
@@ -66,7 +64,7 @@ public class Main {
 
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🔎 Почему у эмодзи длина 4?</h4>
-<p style="margin-bottom: 0;">Строка <code>"Go🚀"</code> содержит 3 Unicode code points: <code>G</code>, <code>o</code>, <code>🚀</code>. Но <code>🚀</code> занимает две UTF-16 ячейки, поэтому <code>length()</code> вернёт <code>4</code>. Для количества Unicode code points используйте <code>codePointCount</code>.</p>
+<p style="margin-bottom: 0;">Строка <code>"Java🚀"</code> содержит 5 Unicode code points: <code>J</code>, <code>a</code>, <code>v</code>, <code>a</code>, <code>🚀</code>. Но <code>🚀</code> занимает две UTF-16 ячейки, поэтому <code>length()</code> вернёт <code>6</code>. Для количества Unicode code points используйте <code>codePointCount</code>.</p>
 </div>
 
 <h2 style="color: #34495e; margin-top: 30px;">3. Code point: безопасная единица Unicode</h2>
@@ -120,5 +118,7 @@ public class Main {
 	<li><label><input type="checkbox"> Я не режу Unicode-текст произвольными индексами</label></li>
 </ul>
 </div>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
+
 </div>
 </div>

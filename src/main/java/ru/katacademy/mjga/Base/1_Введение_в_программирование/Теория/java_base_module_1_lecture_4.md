@@ -166,5 +166,7 @@ I am learning Java</pre>
 <p><strong>Теперь можно переходить к небольшим практическим задачам на вывод текста и метод <code>main()</code>.</strong></p>
 
 <p>Дальше вы будете чаще писать код руками: создавать файл, запускать программу и исправлять простые ошибки.</p>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
+
 </div>
 </div>

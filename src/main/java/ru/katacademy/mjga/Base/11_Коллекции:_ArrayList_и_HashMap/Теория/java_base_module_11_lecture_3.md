@@ -113,5 +113,7 @@ switch (command) {
 	<li><label><input type="checkbox"> Я могу отсортировать ключи через <code>ArrayList</code> и <code>Collections.sort</code></label></li>
 	<li><label><input type="checkbox"> Я понимаю, зачем создавать внутренний <code>HashMap</code> перед записью</label></li>
 </ul>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
+
 </div>
 </div>

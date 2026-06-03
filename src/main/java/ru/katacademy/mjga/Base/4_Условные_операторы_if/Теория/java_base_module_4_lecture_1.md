@@ -119,12 +119,12 @@ double price = 2000.00;
 
 if (balance &gt;= price) {
     System.out.println("Покупка одобрена");
-    System.out.printf("Остаток: %.2f руб.%n", balance - price);
+    System.out.println("Остаток: " + (balance - price) + " руб.");
 } else {
     System.out.println("Недостаточно средств");
-    System.out.printf("Не хватает: %.2f руб.%n", price - balance);
+    System.out.println("Не хватает: " + (price - balance) + " руб.");
 }</code></pre>
-<p><code>System.out.printf</code> печатает текст по шаблону. Здесь <code>%.2f</code> означает дробное число с двумя знаками после точки, а <code>%n</code> добавляет перенос строки. Если форматирование пока кажется сложным, можно использовать обычный <code>System.out.println</code>; условный оператор от этого не меняется.</p>
+<p>Для вывода текста и значения в Base достаточно <code>System.out.println</code> и соединения через <code>+</code>.</p>
 <p>Блок <code>else</code> выполняется только тогда, когда условие в <code>if</code> ложно.</p>
 
 <h2 id="chain" style="color: #34495e; margin-top: 30px;">5. Цепочка else if</h2>
@@ -164,8 +164,8 @@ if ((age &gt;= 18 &amp;&amp; hasTicket) || vip) {
 </div>
 
 <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 20px 0;">
-<h4 style="color: #856404; margin-top: 0;">Почему в задачах запрещают <code>switch</code></h4>
-<p style="margin: 0;"><code>switch</code> &mdash; это другой оператор выбора. Он полезен для некоторых наборов фиксированных вариантов, но в этом модуле цель другая: научиться уверенно писать условия через <code>if</code>, <code>else if</code>, <code>else</code> и логические операторы.</p>
+<h4 style="color: #856404; margin-top: 0;">Почему в задачах запрещают другие операторы выбора</h4>
+<p style="margin: 0;">Позже будет отдельная тема про выбор из фиксированных вариантов. В этом модуле цель другая: научиться уверенно писать условия через <code>if</code>, <code>else if</code>, <code>else</code> и логические операторы.</p>
 </div>
 
 <h2 id="return" style="color: #34495e; margin-top: 30px;">7. Ранний return в методах</h2>
@@ -222,6 +222,8 @@ if ((age &gt;= 18 &amp;&amp; hasTicket) || vip) {
 	<li><label><input type="checkbox"> Я проверяю граничные значения, а не только обычные примеры.</label></li>
 </ul>
 </div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
 
 </div>
 </div>

@@ -11,7 +11,7 @@
 	<li><strong>Переменная</strong> &mdash; это именованное место для хранения значения.</li>
 	<li>В Java у каждой переменной есть <strong>тип</strong>, <strong>имя</strong> и <strong>значение</strong>.</li>
 	<li>Переменную можно объявить с явным типом: <code>int age = 25;</code>.</li>
-	<li>Ключевое слово <code>var</code> есть в Java, но для новичков сначала важнее писать тип явно.</li>
+	<li>В Base пишем типы явно: <code>int age = 25;</code>, <code>String name = "Alice";</code>.</li>
 	<li><strong>Константы</strong> создаются через <code>final</code> и не меняются после присваивания.</li>
 </ul>
 </div>
@@ -27,7 +27,6 @@
 <ul>
 	<li><a href="#what-are-variables">Что такое переменные?</a></li>
 	<li><a href="#declaration">Объявление переменных</a></li>
-	<li><a href="#var-keyword">Ключевое слово var в Java</a></li>
 	<li><a href="#data-types">Основные типы данных</a></li>
 	<li><a href="#multiple-variables">Несколько переменных</a></li>
 	<li><a href="#naming-rules">Правила именования</a></li>
@@ -65,15 +64,6 @@ boolean isStudent = true; // да/нет</code></pre>
 <p>Точка с запятой <code>;</code> завершает инструкцию в Java.</p>
 </div>
 
-<h2 id="var-keyword" style="color: #34495e; margin-top: 30px;">Ключевое слово var в Java</h2>
-<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 20px; margin: 20px 0;">
-<p>В Java есть <code>var</code>, но это не отдельный тип данных. Компилятор сам выводит тип по значению справа.</p>
-<pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 5px;"><code>var age = 25;        // Java понимает: int
-var name = "Alice";  // Java понимает: String</code></pre>
-<div style="background: #fff3cd; padding: 12px; border-radius: 5px; margin-top: 15px;">
-<p style="margin: 0;"><strong>Важно:</strong> в начале курса используем явные типы. Так проще видеть, какие данные хранит переменная.</p>
-</div>
-</div>
 
 <h2 id="data-types" style="color: #34495e; margin-top: 30px;">Основные типы данных</h2>
 <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0;">
@@ -138,6 +128,8 @@ final String CURRENCY = "RUB";</code></pre>
 
 <h2 id="next" style="color: #34495e; margin-top: 30px;">Что дальше?</h2>
 <p>Дальше разберём типы данных подробнее: целые числа, дробные числа, строки, логические значения и преобразование типов.</p>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
 
 </div>
 </div>

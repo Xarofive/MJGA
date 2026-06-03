@@ -17,6 +17,11 @@
 </ul>
 </div>
 
+<div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
+<h4 style="color: #f57c00; margin-top: 0;">Как проходить этот модуль</h4>
+<p style="margin: 0;">Сначала разберите обычный <code>break</code>, затем простой <code>continue</code>, потом <code>continue</code> в <code>while</code>. Метки и guard clauses используйте только после этих трёх шагов: это отдельные приёмы, а не обязательный стиль для каждой задачи.</p>
+</div>
+
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
 <p><strong>Аудио по break и continue в Java будет добавлено позже.</strong></p>
@@ -40,7 +45,7 @@
 	<li>циклы <code>for</code> и <code>while</code>;</li>
 	<li>условные операторы <code>if</code>, <code>else</code>;</li>
 	<li>операторы <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>;</li>
-	<li>вывод через <code>System.out.println</code> и <code>System.out.printf</code>.</li>
+	<li>вывод через <code>System.out.println</code>.</li>
 </ul>
 </div>
 
@@ -138,6 +143,8 @@ for (int i = 1; i &lt;= 9; i++) {
 	<li><label><input type="checkbox"> Я применяю guard clauses, когда они делают код проще.</label></li>
 </ul>
 </div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
 
 </div>
 </div>

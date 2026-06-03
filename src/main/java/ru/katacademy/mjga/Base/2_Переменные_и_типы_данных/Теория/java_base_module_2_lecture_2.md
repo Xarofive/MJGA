@@ -99,7 +99,7 @@ int rounded = (int) price;   // 99, дробная часть отброшена
 double p = 99.99;
 String user = "Alice";
 boolean ok = true;</code></pre>
-<p>При использовании <code>var</code> тип можно увидеть в подсказках IntelliJ IDEA при наведении на переменную.</p>
+<p>В Base тип видно прямо в объявлении переменной, поэтому используйте явные типы.</p>
 
 <h2 id="common-mistakes" style="color: #34495e; margin-top: 30px;">Частые ошибки</h2>
 <table style="width: 100%; border-collapse: collapse;">
@@ -126,6 +126,8 @@ boolean ok = true;</code></pre>
 	<li>Что хранит <code>boolean</code>?</li>
 	<li>Что произойдёт при преобразовании <code>99.99</code> в <code>int</code>?</li>
 </ul>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
 
 </div>
 </div>

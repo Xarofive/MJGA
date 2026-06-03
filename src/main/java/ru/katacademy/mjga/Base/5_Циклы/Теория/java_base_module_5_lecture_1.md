@@ -96,7 +96,7 @@
 
 <h3 style="color: #34495e;">Обратный отсчёт</h3>
 <pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 5px;"><code>for (int i = 10; i &gt;= 1; i--) {
-    System.out.printf("%d...%n", i);
+    System.out.println(i + "...");
 }
 
 System.out.println("СТАРТ!");</code></pre>
@@ -106,7 +106,7 @@ System.out.println("СТАРТ!");</code></pre>
 <pre style="background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 5px;"><code>int count = 5;
 
 while (count &gt; 0) {
-    System.out.printf("Осталось попыток: %d%n", count);
+    System.out.println("Осталось попыток: " + count);
     count--;
 }</code></pre>
 <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
@@ -177,6 +177,8 @@ while (n &gt; 0) {
 	<li><label><input type="checkbox"> В методах я возвращаю результат через <code>return</code>, а не печатаю его.</label></li>
 </ul>
 </div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
 
 </div>
 </div>

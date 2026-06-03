@@ -1,7 +1,3 @@
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
-<p>&nbsp;</p>
-
 <div style="max-width: 900px; margin: 0 auto; padding: 20px; background: #f8f9fa;">
 <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow-x: auto;">
 <h1 style="text-align: center; color: #2c3e50;">Базовые паттерны работы с массивами</h1>
@@ -558,5 +554,7 @@ System.arraycopy(src, srcPos, dst, dstPos, length); // быстрое копир
 	<li><label><input type="checkbox"> Я умею дедуплицировать отсортированный массив</label></li>
 </ul>
 </div>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;"><h3 style="margin-top: 0;">🚀 Навык разблокирован</h3><p style="margin-bottom: 0;">После этой лекции вы сможете применять материал темы в Java-задачах.</p></div>
+
 </div>
 </div>
