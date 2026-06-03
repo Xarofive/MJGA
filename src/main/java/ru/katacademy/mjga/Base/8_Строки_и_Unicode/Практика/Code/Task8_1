@@ -1,0 +1,43 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_1 {
+    @Test
+    public void test1_countsUtf8BytesAndCodePoints() {
+        check("", new int[]{0, 0});
+        check("Hello", new int[]{5, 5});
+        check("Привет", new int[]{12, 6});
+        check("Java🚀", new int[]{8, 5});
+    }
+
+    private void check(String s, int[] expected) {
+        int[] actual = byteCodePointCount(s);
+        if (!Arrays.equals(expected, actual)) {
+            failWithoutStackTrace("Тест не пройден: byteCodePointCount(\"" + s + "\") должен вернуть " +
+                    Arrays.toString(expected) + ", но вернул " + Arrays.toString(actual) + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int[] byteCodePointCount(String s) {
+    int bytes = s.getBytes(StandardCharsets.UTF_8).length;
+    int codePoints = s.codePointCount(0, s.length());
+    return new int[]{bytes, codePoints};
+}

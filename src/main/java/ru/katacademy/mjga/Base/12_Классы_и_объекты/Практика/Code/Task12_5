@@ -1,0 +1,67 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task12_5 {
+    @Test
+    public void test1_changesCounterValue() {
+        Counter counter = new Counter();
+        counter.increment();
+        counter.add(4);
+
+        check("Counter: 5", counter.status());
+    }
+
+    @Test
+    public void test2_checksReferences() {
+        Counter first = new Counter();
+        Counter second = first;
+        Counter third = new Counter();
+
+        if (!Counter.sameObject(first, second)) {
+            failWithoutStackTrace("Одинаковые ссылки должны вернуть true.");
+        }
+        if (Counter.sameObject(first, third)) {
+            failWithoutStackTrace("Разные объекты должны вернуть false.");
+        }
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class Counter {
+    int value;
+
+    void increment() {
+        value++;
+    }
+
+    void add(int amount) {
+        value += amount;
+    }
+
+    String status() {
+        return "Counter: " + value;
+    }
+
+    static boolean sameObject(Counter first, Counter second) {
+        return first == second;
+    }
+}

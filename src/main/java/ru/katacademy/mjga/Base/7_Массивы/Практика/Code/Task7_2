@@ -1,0 +1,47 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task7_2 {
+    @Test
+    public void test1_returnsExpectedArrays() {
+        check(5, new int[]{5, 4, 3, 2, 1, 0});
+        check(0, new int[]{0});
+        check(-5, new int[]{});
+        check(2, new int[]{2, 1, 0});
+    }
+
+    private void check(int start, int[] expected) {
+        int[] actual = buildCountdown(start);
+        if (!Arrays.equals(expected, actual)) {
+            failWithoutStackTrace("Тест не пройден: buildCountdown(" + start + ") должен вернуть " +
+                    Arrays.toString(expected) + ", но вернул " + Arrays.toString(actual) + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int[] buildCountdown(int start) {
+    if (start < 0) {
+        return new int[0];
+    }
+    int[] result = new int[start + 1];
+    for (int value = start, index = 0; value >= 0; value--, index++) {
+        result[index] = value;
+    }
+    return result;
+}

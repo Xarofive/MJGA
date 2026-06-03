@@ -1,0 +1,65 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task12_2 {
+    @Test
+    public void test1_switchesLampState() {
+        Lamp lamp = new Lamp();
+        lamp.model = "Desk";
+
+        check("Desk: off", lamp.status());
+        lamp.turnOn();
+        check("Desk: on", lamp.status());
+        lamp.turnOff();
+        check("Desk: off", lamp.status());
+    }
+
+    @Test
+    public void test2_usesModelField() {
+        Lamp lamp = new Lamp();
+        lamp.model = "Floor";
+        lamp.turnOn();
+
+        check("Floor: on", lamp.status());
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class Lamp {
+    String model;
+    boolean isOn;
+
+    void turnOn() {
+        isOn = true;
+    }
+
+    void turnOff() {
+        isOn = false;
+    }
+
+    String status() {
+        if (isOn) {
+            return model + ": on";
+        }
+        return model + ": off";
+    }
+}

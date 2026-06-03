@@ -1,0 +1,60 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task3_5 {
+
+    @Test
+    public void test1_personalGreetingPrintsExpectedValues() {
+        check("Анна", 25, "Привет, Анна! Тебе 25 лет.\n");
+        check("Иван", 10, "Привет, Иван! Тебе 10 лет.\n");
+    }
+
+    private void check(String name, int age, String expectedOutput) {
+        String actualOutput = runAndReadOutput(name, age);
+        if (!expectedOutput.equals(actualOutput)) {
+            failWithoutStackTrace("Тест не пройден для name=\"" + name + "\", age=" + age +
+                    ".\nОжидался вывод: " + showText(expectedOutput) +
+                    "\nПолучен вывод: " + showText(actualOutput) + ".");
+        }
+    }
+
+    private String runAndReadOutput(String name, int age) {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            personalGreeting(name, age);
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static void personalGreeting(String name, int age) {
+    System.out.println("Привет, " + name + "! Тебе " + age + " лет.");
+}

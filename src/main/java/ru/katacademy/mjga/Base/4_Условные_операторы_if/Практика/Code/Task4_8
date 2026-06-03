@@ -1,0 +1,51 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_8 {
+
+    @Test
+    public void test1_promoStatusReturnsExpectedValues() {
+        check(6, true, true, "accepted");
+        check(6, true, false, "members only");
+        check(0, false, true, "missing");
+        check(3, false, true, "invalid length");
+        check(6, false, false, "accepted");
+        check(7, true, true, "invalid length");
+        check(6, false, true, "accepted");
+    }
+
+    private void check(int codeLength, boolean isJavaSale, boolean isMember, String expected) {
+        String actual = promoStatus(codeLength, isJavaSale, isMember);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: promoStatus(" + codeLength + ", " + isJavaSale + ", " + isMember +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String promoStatus(int codeLength, boolean isJavaSale, boolean isMember) {
+    if (codeLength == 0) {
+        return "missing";
+    }
+    if (codeLength != 6) {
+        return "invalid length";
+    }
+    if (isJavaSale && !isMember) {
+        return "members only";
+    }
+    return "accepted";
+}

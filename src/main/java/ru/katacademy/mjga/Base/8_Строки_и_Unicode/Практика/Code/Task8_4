@@ -1,0 +1,43 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_4 {
+    @Test
+    public void test1_normalizesSpaces() {
+        check("  hello   world  ", "hello world");
+        check("a\tb\nc", "a b c");
+        check("     ", "");
+        check("", "");
+    }
+
+    private void check(String s, String expected) {
+        String actual = normalizeSpaces(s);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: normalizeSpaces должен вернуть \"" + expected +
+                    "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String normalizeSpaces(String s) {
+    String trimmed = s.trim();
+    if (trimmed.isEmpty()) {
+        return "";
+    }
+    String[] words = trimmed.split("\\s+");
+    return String.join(" ", words);
+}

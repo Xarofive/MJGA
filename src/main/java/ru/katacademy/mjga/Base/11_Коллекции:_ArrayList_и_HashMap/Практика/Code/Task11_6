@@ -1,0 +1,50 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task11_6 {
+    @Test
+    public void test1_filtersValues() {
+        check(new int[]{1, 5, 10, 3}, 5, new ArrayList<>(Arrays.asList(5, 10)));
+        check(new int[]{7, 7, 1}, 7, new ArrayList<>(Arrays.asList(7, 7)));
+    }
+
+    @Test
+    public void test2_handlesNoMatches() {
+        check(new int[]{1, 2, 3}, 10, new ArrayList<Integer>());
+        check(new int[0], 0, new ArrayList<Integer>());
+    }
+
+    private void check(int[] values, int limit, ArrayList<Integer> expected) {
+        ArrayList<Integer> actual = filterAtLeast(values, limit);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался список " + expected + ", но получен " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static ArrayList<Integer> filterAtLeast(int[] values, int limit) {
+    ArrayList<Integer> result = new ArrayList<>();
+    for (int value : values) {
+        if (value >= limit) {
+            result.add(value);
+        }
+    }
+    return result;
+}

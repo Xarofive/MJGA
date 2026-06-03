@@ -1,0 +1,51 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_3 {
+
+    @Test
+    public void test1_temperatureAdviceReturnsExpectedValues() {
+        check(-10, "freezing");
+        check(0, "chilly");
+        check(17, "chilly");
+        check(18, "warm");
+        check(25, "warm");
+        check(27, "warm");
+        check(28, "hot");
+        check(40, "hot");
+    }
+
+    private void check(int temp, String expected) {
+        String actual = temperatureAdvice(temp);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: temperatureAdvice(" + temp +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String temperatureAdvice(int temp) {
+    if (temp < 0) {
+        return "freezing";
+    } else if (temp <= 17) {
+        return "chilly";
+    } else if (temp <= 27) {
+        return "warm";
+    } else {
+        return "hot";
+    }
+}

@@ -1,0 +1,124 @@
+// есть 2 окна ввода, Placeholder для студента и ожидаемый код решения
+
+//Placeholder для студента
+import com.ewp.analyzer.CodeAnalyzer;
+import com.ewp.analyzer.CodeAnalyzerImpl;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.contrib.java.lang.system.SystemOutRule;
+import org.junit.runners.MethodSorters;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9 {
+
+    @Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+    public final CodeAnalyzer codeAnalyzer = new CodeAnalyzerImpl(Task9.class);
+    private static Method evenArray;
+
+    @Test
+    public void preTest() {
+        Class[] argsEvenArray = new Class[]{int.class};
+        String[] mod = new String[]{"public"};
+
+        evenArray = codeAnalyzer.getMethodInClass("evenArray", int[].class, argsEvenArray, mod);
+        if (evenArray == null) {
+            System.err.println("Метод отсутсвует или не соответствует условию задачи");
+            System.exit(1);
+        }
+    }
+
+    @Test
+    public void test1() throws IllegalAccessException {
+        try {
+            String firstStudentResult = Arrays.toString((int[]) evenArray.invoke(this, 6));
+            assertEquals("Тест №1 провален. Не корректная реализация метода",
+                    Arrays.toString(evenArrayStd(6)),
+                    firstStudentResult.replaceAll("\r", ""));
+        } catch (InvocationTargetException e) {
+            handleInvocationTargetException(e);
+        }
+    }
+
+    @Test
+    public void test2() throws IllegalAccessException {
+        try {
+            String secondStudentResult = Arrays.toString((int[]) evenArray.invoke(this, 10));
+            assertEquals("Тест №2 провален. Не корректная реализация метода",
+                    Arrays.toString(evenArrayStd(10)),
+                    secondStudentResult.replaceAll("\r", ""));
+        } catch (InvocationTargetException e) {
+            handleInvocationTargetException(e);
+        }
+    }
+
+    @Test
+    public void test3() throws IllegalAccessException {
+        try {
+            String finalResult = Arrays.toString((int[]) evenArray.invoke(this, 447));
+            assertEquals("Тест №3 провален. Не корректная реализация метода",
+                    Arrays.toString(evenArrayStd(447)),
+                    finalResult.replaceAll("\r", ""));
+        } catch (InvocationTargetException e) {
+            handleInvocationTargetException(e);
+        }
+    }
+
+    private int[] evenArrayStd(int number) {
+        int[] array = new int[number / 2];
+        int counter = 0;
+        for (int i = 1; i <= number; i++) {
+            if (i % 2 == 0) {
+                array[counter] = i;
+                counter++;
+            }
+        }
+        return array;
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void handleInvocationTargetException(InvocationTargetException e) {
+        Throwable cause = e.getCause();
+        if (cause != null) {
+            System.err.println("Неожиданное исключение: " + cause);
+            System.exit(1);
+        } else {
+            System.err.println("Во время работы тесты произошла проблема.\n" +
+                    "Обратись к своему ментору");
+            System.exit(1);
+        }
+    }
+
+    @Before
+    public void clearStdIn() {
+        systemOutRule.clearLog();
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    public int[] evenArray(int number) {
+        //Твой код здесь
+    }
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public int[] evenArray(int number) {
+    int[] array = new int[number / 2];
+    int counter = 0;
+    for (int i = 1; i <= number; i++) {
+        if (i % 2 == 0) {
+            array[counter] = i;
+            counter++;
+        }
+    }
+    return array;
+}

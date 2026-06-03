@@ -1,0 +1,58 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_2 {
+    @Test
+    public void test1_classifiesLettersDigitsAndSpaces() {
+        check('A', "letter");
+        check('я', "letter");
+        check('7', "digit");
+        check(' ', "space");
+    }
+
+    @Test
+    public void test2_classifiesPunctuationAndOther() {
+        check('?', "punctuation");
+        check(':', "punctuation");
+        check('@', "other");
+    }
+
+    private void check(char ch, String expected) {
+        String actual = classifyChar(ch);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для символа '" + ch + "' ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String classifyChar(char ch) {
+    if (Character.isLetter(ch)) {
+        return "letter";
+    }
+    if (Character.isDigit(ch)) {
+        return "digit";
+    }
+    if (Character.isWhitespace(ch)) {
+        return "space";
+    }
+
+    return switch (ch) {
+        case '.', ',', '!', '?', ';', ':' -> "punctuation";
+        default -> "other";
+    };
+}

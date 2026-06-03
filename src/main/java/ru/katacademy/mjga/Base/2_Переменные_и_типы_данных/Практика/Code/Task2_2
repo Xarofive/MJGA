@@ -1,0 +1,77 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task2_2 {
+
+    private static final String EXPECTED_OUTPUT = "25\nJohn\n1.75\ntrue\n1000.5\n1995\nKazakhstan\n36.6\n150\n2024-09-01\n";
+
+    @Test
+    public void test1_printsExactText() {
+        String actualOutput = runAndReadOutput();
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace("Тест не пройден.\nОжидался вывод: " + showText(EXPECTED_OUTPUT) +
+                    "\nПолучен вывод: " + showText(actualOutput) +
+                    "\nПроверьте значения, типы и порядок вывода.");
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            runSolution();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void runSolution() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+int age = 25;
+String name = "John";
+double height = 1.75;
+boolean isActive = true;
+double balance = 1000.50;
+int birthYear = 1995;
+String country = "Kazakhstan";
+double temperature = 36.6;
+int friendsCount = 150;
+String registeredAt = "2024-09-01";
+
+System.out.println(age);
+System.out.println(name);
+System.out.println(height);
+System.out.println(isActive);
+System.out.println(balance);
+System.out.println(birthYear);
+System.out.println(country);
+System.out.println(temperature);
+System.out.println(friendsCount);
+System.out.println(registeredAt);

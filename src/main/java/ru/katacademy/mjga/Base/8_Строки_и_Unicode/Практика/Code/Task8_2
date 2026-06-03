@@ -1,0 +1,48 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_2 {
+    @Test
+    public void test1_extractsSubstringByCodePoints() {
+        check("Hello, World!", 7, 5, "World");
+        check("Hello😊世界", 5, 3, "😊世界");
+        check("Привет", 3, 10, "вет");
+        check("Test", 2, 0, "");
+    }
+
+    private void check(String s, int start, int length, String expected) {
+        String actual = substringCodePoints(s, start, length);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: substringCodePoints(\"" + s + "\", " + start + ", " + length +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String substringCodePoints(String s, int start, int length) {
+    if (length == 0) {
+        return "";
+    }
+    int total = s.codePointCount(0, s.length());
+    int end = start + length;
+    if (end > total) {
+        end = total;
+    }
+    int startIndex = s.offsetByCodePoints(0, start);
+    int endIndex = s.offsetByCodePoints(0, end);
+    return s.substring(startIndex, endIndex);
+}

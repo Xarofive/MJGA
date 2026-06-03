@@ -1,0 +1,119 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task11_4 {
+    @Test
+    public void test1_processesInventoryCommands() throws IOException {
+        String input = "10\nADD groceries milk 50 2\nADD groceries bread 30 1\nTOTAL groceries\nDELETE groceries milk\nTOTAL groceries\nDELETE groceries milk\nADD tech phone 200 3\nSUMMARY\nTOTAL tech\nTOTAL groceries\n";
+        String expected = "130\nOK\n30\nNOT FOUND\ngroceries 30\ntech 600\n600\n30\n";
+        check(input, expected);
+    }
+
+    @Test
+    public void test2_accumulatesItemTotals() throws IOException {
+        String input = "5\nADD food apple 10 3\nADD food apple 5 2\nTOTAL food\nSUMMARY\nTOTAL tech\n";
+        String expected = "40\nfood 40\nNOT FOUND\n";
+        check(input, expected);
+    }
+
+    private void check(String input, String expected) throws IOException {
+        StringWriter output = new StringWriter();
+        processInventory(new BufferedReader(new StringReader(input)), new PrintWriter(output, true));
+        String actual = output.toString().replace("\r\n", "\n");
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался вывод:\n" + expected + "Но получен:\n" + actual);
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static void processInventory(BufferedReader reader, PrintWriter writer) throws IOException {
+    HashMap<String, HashMap<String, Integer>> inventory = new HashMap<>();
+    int n = Integer.parseInt(reader.readLine());
+
+    for (int i = 0; i < n; i++) {
+        String line = reader.readLine();
+        String[] parts = line.split("\\s+");
+        String command = parts[0];
+
+        if ("ADD".equals(command)) {
+            String category = parts[1];
+            String item = parts[2];
+            int price = Integer.parseInt(parts[3]);
+            int quantity = Integer.parseInt(parts[4]);
+            HashMap<String, Integer> items = inventory.get(category);
+            if (items == null) {
+                items = new HashMap<>();
+                inventory.put(category, items);
+            }
+            Integer current = items.get(item);
+            if (current == null) {
+                current = 0;
+            }
+            items.put(item, current + price * quantity);
+        } else if ("DELETE".equals(command)) {
+            String category = parts[1];
+            String item = parts[2];
+            HashMap<String, Integer> items = inventory.get(category);
+            boolean deleted = false;
+            if (items != null && items.remove(item) != null) {
+                deleted = true;
+                if (items.isEmpty()) {
+                    inventory.remove(category);
+                }
+            }
+            writer.println(deleted ? "OK" : "NOT FOUND");
+        } else if ("TOTAL".equals(command)) {
+            if (!inventory.containsKey(parts[1])) {
+                writer.println("NOT FOUND");
+            } else {
+                writer.println(totalByCategory(inventory, parts[1]));
+            }
+        } else if ("SUMMARY".equals(command)) {
+            ArrayList<String> categories = new ArrayList<>(inventory.keySet());
+            Collections.sort(categories);
+            if (categories.isEmpty()) {
+                writer.println("EMPTY");
+            } else {
+                for (String category : categories) {
+                    writer.println(category + " " + totalByCategory(inventory, category));
+                }
+            }
+        }
+    }
+}
+
+private static int totalByCategory(HashMap<String, HashMap<String, Integer>> inventory, String category) {
+    HashMap<String, Integer> items = inventory.get(category);
+    if (items == null) {
+        return 0;
+    }
+
+    int sum = 0;
+    for (int value : items.values()) {
+        sum += value;
+    }
+    return sum;
+}

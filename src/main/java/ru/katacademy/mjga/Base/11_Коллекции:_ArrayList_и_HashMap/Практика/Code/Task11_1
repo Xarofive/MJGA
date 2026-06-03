@@ -1,0 +1,78 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.HashMap;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task11_1 {
+    @Test
+    public void test1_processesPhonebookCommands() throws IOException {
+        String input = "7\nPUT Alice 123456\nGET Alice\nGET Bob\nPUT Bob 555\nCOUNT\nDEL Bob\nCOUNT\n";
+        String expected = "123456\nNOT FOUND\n2\nOK\n1\n";
+        check(input, expected);
+    }
+
+    @Test
+    public void test2_updatesAndDeletesContacts() throws IOException {
+        String input = "6\nPUT Ann 100\nPUT Ann 200\nGET Ann\nDEL Ann\nGET Ann\nCOUNT\n";
+        String expected = "200\nOK\nNOT FOUND\n0\n";
+        check(input, expected);
+    }
+
+    private void check(String input, String expected) throws IOException {
+        StringWriter output = new StringWriter();
+        processPhonebook(new BufferedReader(new StringReader(input)), new PrintWriter(output, true));
+        String actual = output.toString().replace("\r\n", "\n");
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался вывод:\n" + expected + "Но получен:\n" + actual);
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static void processPhonebook(BufferedReader reader, PrintWriter writer) throws IOException {
+    HashMap<String, String> phonebook = new HashMap<>();
+    int q = Integer.parseInt(reader.readLine());
+
+    for (int i = 0; i < q; i++) {
+        String line = reader.readLine();
+        String[] parts = line.split("\\s+");
+        String command = parts[0];
+
+        if ("PUT".equals(command)) {
+            phonebook.put(parts[1], parts[2]);
+        } else if ("GET".equals(command)) {
+            String phone = phonebook.get(parts[1]);
+            if (phone == null) {
+                writer.println("NOT FOUND");
+            } else {
+                writer.println(phone);
+            }
+        } else if ("COUNT".equals(command)) {
+            writer.println(phonebook.size());
+        } else if ("DEL".equals(command)) {
+            if (phonebook.remove(parts[1]) == null) {
+                writer.println("NOT FOUND");
+            } else {
+                writer.println("OK");
+            }
+        }
+    }
+}

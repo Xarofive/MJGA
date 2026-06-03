@@ -1,0 +1,46 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_1 {
+
+    @Test
+    public void test1_describeSignReturnsExpectedValues() {
+        check(9, "positive");
+        check(-5, "negative");
+        check(0, "zero");
+        check(1, "positive");
+        check(-1, "negative");
+    }
+
+    private void check(int n, String expected) {
+        String actual = describeSign(n);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: describeSign(" + n + ") должен вернуть \"" +
+                    expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String describeSign(int n) {
+    if (n > 0) {
+        return "positive";
+    } else if (n == 0) {
+        return "zero";
+    } else {
+        return "negative";
+    }
+}

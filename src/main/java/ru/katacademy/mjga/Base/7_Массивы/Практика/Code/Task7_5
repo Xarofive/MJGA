@@ -1,0 +1,50 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task7_5 {
+    @Test
+    public void test1_clonesArrayIndependently() {
+        check(new int[]{1, 2, 3});
+        check(new int[]{});
+        if (cloneArray(null) != null) {
+            failWithoutStackTrace("Тест не пройден: cloneArray(null) должен вернуть null.");
+        }
+    }
+
+    private void check(int[] source) {
+        int[] actual = cloneArray(source);
+        if (!Arrays.equals(source, actual)) {
+            failWithoutStackTrace("Тест не пройден: копия должна содержать те же элементы.");
+        }
+        if (actual == source) {
+            failWithoutStackTrace("Тест не пройден: нужно вернуть новый массив, а не ту же ссылку.");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int[] cloneArray(int[] src) {
+    if (src == null) {
+        return null;
+    }
+    int[] copy = new int[src.length];
+    for (int i = 0; i < src.length; i++) {
+        copy[i] = src[i];
+    }
+    return copy;
+}

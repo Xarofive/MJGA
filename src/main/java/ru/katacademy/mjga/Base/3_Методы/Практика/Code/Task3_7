@@ -1,0 +1,41 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task3_7 {
+
+    @Test
+    public void test1_averagePairReturnsExpectedValues() {
+        check(10.0, 20.0, 15.0);
+        check(3.5, 7.5, 5.5);
+        check(-4.0, 12.0, 4.0);
+        check(7.0, 7.0, 7.0);
+    }
+
+    private void check(double first, double second, double expected) {
+        double actual = averagePair(first, second);
+        if (Math.abs(actual - expected) > 0.000001) {
+            failWithoutStackTrace("Тест не пройден: averagePair(" + first + ", " + second +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static double averagePair(double first, double second) {
+    double total = first + second;
+    double average = total / 2.0;
+    return average;
+}

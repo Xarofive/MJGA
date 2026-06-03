@@ -1,0 +1,56 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_5 {
+    @Test
+    public void test1_returnsHttpCategories() {
+        check(100, "informational");
+        check(200, "success");
+        check(301, "redirection");
+        check(404, "client error");
+        check(599, "server error");
+    }
+
+    @Test
+    public void test2_handlesUnknownCodes() {
+        check(99, "unknown");
+        check(700, "unknown");
+    }
+
+    private void check(int code, String expected) {
+        String actual = httpCategory(code);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для кода " + code + " ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String httpCategory(int code) {
+    if (code < 100 || code > 599) {
+        return "unknown";
+    }
+
+    return switch (code / 100) {
+        case 1 -> "informational";
+        case 2 -> "success";
+        case 3 -> "redirection";
+        case 4 -> "client error";
+        case 5 -> "server error";
+        default -> "unknown";
+    };
+}

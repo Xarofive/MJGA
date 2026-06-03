@@ -1,0 +1,41 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task3_3 {
+
+    @Test
+    public void test1_multiplyReturnsExpectedValues() {
+        check(5, 3, 15);
+        check(7, 0, 0);
+        check(-4, 6, -24);
+        check(-3, -8, 24);
+        check(1, 999, 999);
+    }
+
+    private void check(int a, int b, int expected) {
+        int actual = multiply(a, b);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: multiply(" + a + ", " + b + ") должен вернуть " +
+                    expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int multiply(int a, int b) {
+    int result = a * b;
+    return result;
+}

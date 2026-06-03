@@ -1,0 +1,53 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_10 {
+
+    @Test
+    public void test1_scoreLabelReturnsExpectedValues() {
+        check(95, "excellent");
+        check(70, "passed");
+        check(69, "failed");
+        check(101, "invalid");
+        check(-1, "invalid");
+        check(100, "excellent");
+        check(0, "failed");
+        check(89, "passed");
+        check(90, "excellent");
+    }
+
+    private void check(int score, String expected) {
+        String actual = scoreLabel(score);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: scoreLabel(" + score +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String scoreLabel(int score) {
+    if (score < 0 || score > 100) {
+        return "invalid";
+    }
+    if (score >= 90) {
+        return "excellent";
+    }
+    if (score >= 70) {
+        return "passed";
+    }
+    return "failed";
+}

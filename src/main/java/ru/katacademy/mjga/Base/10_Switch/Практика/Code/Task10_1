@@ -1,0 +1,58 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_1 {
+    @Test
+    public void test1_returnsMonthNames() {
+        check(1, "январь");
+        check(6, "июнь");
+        check(12, "декабрь");
+    }
+
+    @Test
+    public void test2_handlesUnknownMonths() {
+        check(0, "unknown");
+        check(13, "unknown");
+        check(-1, "unknown");
+    }
+
+    private void check(int month, String expected) {
+        String actual = monthName(month);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для месяца " + month + " ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String monthName(int month) {
+    return switch (month) {
+        case 1 -> "январь";
+        case 2 -> "февраль";
+        case 3 -> "март";
+        case 4 -> "апрель";
+        case 5 -> "май";
+        case 6 -> "июнь";
+        case 7 -> "июль";
+        case 8 -> "август";
+        case 9 -> "сентябрь";
+        case 10 -> "октябрь";
+        case 11 -> "ноябрь";
+        case 12 -> "декабрь";
+        default -> "unknown";
+    };
+}

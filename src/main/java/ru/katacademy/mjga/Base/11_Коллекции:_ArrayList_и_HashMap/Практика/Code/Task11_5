@@ -1,0 +1,88 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task11_5 {
+    @Test
+    public void test1_processesTodoCommands() throws IOException {
+        String input = "8\nADD read\nGET 0\nADD practice\nSET 1 solve\nGET 1\nREMOVE 0\nCOUNT\nGET 5\n";
+        String expected = "read\nOK\nsolve\nOK\n1\nINVALID\n";
+        check(input, expected);
+    }
+
+    @Test
+    public void test2_handlesInvalidIndexes() throws IOException {
+        String input = "5\nGET 0\nREMOVE 0\nADD one\nSET 5 five\nCOUNT\n";
+        String expected = "INVALID\nINVALID\nINVALID\n1\n";
+        check(input, expected);
+    }
+
+    private void check(String input, String expected) throws IOException {
+        StringWriter output = new StringWriter();
+        processTodoList(new BufferedReader(new StringReader(input)), new PrintWriter(output, true));
+        String actual = output.toString().replace("\r\n", "\n");
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался вывод:\n" + expected + "Но получен:\n" + actual);
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static void processTodoList(BufferedReader reader, PrintWriter writer) throws IOException {
+    ArrayList<String> tasks = new ArrayList<>();
+    int count = Integer.parseInt(reader.readLine());
+
+    for (int i = 0; i < count; i++) {
+        String line = reader.readLine();
+        String[] parts = line.split("\\s+", 3);
+        String command = parts[0];
+
+        if ("ADD".equals(command)) {
+            tasks.add(parts[1]);
+        } else if ("GET".equals(command)) {
+            int index = Integer.parseInt(parts[1]);
+            if (index < 0 || index >= tasks.size()) {
+                writer.println("INVALID");
+            } else {
+                writer.println(tasks.get(index));
+            }
+        } else if ("SET".equals(command)) {
+            int index = Integer.parseInt(parts[1]);
+            if (index < 0 || index >= tasks.size()) {
+                writer.println("INVALID");
+            } else {
+                tasks.set(index, parts[2]);
+                writer.println("OK");
+            }
+        } else if ("REMOVE".equals(command)) {
+            int index = Integer.parseInt(parts[1]);
+            if (index < 0 || index >= tasks.size()) {
+                writer.println("INVALID");
+            } else {
+                tasks.remove(index);
+                writer.println("OK");
+            }
+        } else if ("COUNT".equals(command)) {
+            writer.println(tasks.size());
+        }
+    }
+}

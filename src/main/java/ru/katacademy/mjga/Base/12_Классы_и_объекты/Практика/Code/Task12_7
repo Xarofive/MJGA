@@ -1,0 +1,86 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task12_7 {
+    @Test
+    public void test1_transfersMoneyBetweenAccounts() {
+        BankAccount from = new BankAccount();
+        from.owner = "Alice";
+        from.deposit(100);
+
+        BankAccount to = new BankAccount();
+        to.owner = "Bob";
+        to.deposit(20);
+
+        if (!BankAccount.transfer(from, to, 30)) {
+            failWithoutStackTrace("Перевод доступной суммы должен вернуть true.");
+        }
+        check("Alice: 70", from.getInfo());
+        check("Bob: 50", to.getInfo());
+    }
+
+    @Test
+    public void test2_rejectsTransferWhenMoneyIsNotEnough() {
+        BankAccount from = new BankAccount();
+        from.owner = "Alice";
+        from.deposit(10);
+
+        BankAccount to = new BankAccount();
+        to.owner = "Bob";
+
+        if (BankAccount.transfer(from, to, 30)) {
+            failWithoutStackTrace("Перевод суммы больше баланса должен вернуть false.");
+        }
+        check("Alice: 10", from.getInfo());
+        check("Bob: 0", to.getInfo());
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class BankAccount {
+    String owner;
+    int balance;
+
+    void deposit(int amount) {
+        balance += amount;
+    }
+
+    boolean withdraw(int amount) {
+        if (amount > balance) {
+            return false;
+        }
+        balance -= amount;
+        return true;
+    }
+
+    String getInfo() {
+        return owner + ": " + balance;
+    }
+
+    static boolean transfer(BankAccount from, BankAccount to, int amount) {
+        if (!from.withdraw(amount)) {
+            return false;
+        }
+        to.deposit(amount);
+        return true;
+    }
+}

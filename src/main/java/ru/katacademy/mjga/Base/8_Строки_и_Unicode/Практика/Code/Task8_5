@@ -1,0 +1,54 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_5 {
+    @Test
+    public void test1_normalizesSpacesManually() {
+        check("  hello   world  ", "hello world");
+        check("\tJava\nBase\t", "Java Base");
+        check("", "");
+        check("   ", "");
+    }
+
+    private void check(String s, String expected) {
+        String actual = normalizeSpacesManual(s);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: normalizeSpacesManual должен вернуть \"" + expected +
+                    "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String normalizeSpacesManual(String s) {
+    StringBuilder builder = new StringBuilder();
+    boolean needSpace = false;
+    for (int i = 0; i < s.length(); i++) {
+        char ch = s.charAt(i);
+        if (Character.isWhitespace(ch)) {
+            if (builder.length() > 0) {
+                needSpace = true;
+            }
+        } else {
+            if (needSpace) {
+                builder.append(' ');
+                needSpace = false;
+            }
+            builder.append(ch);
+        }
+    }
+    return builder.toString();
+}

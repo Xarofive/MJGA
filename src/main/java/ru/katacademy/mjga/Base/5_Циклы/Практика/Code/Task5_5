@@ -1,0 +1,42 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task5_5 {
+
+    @Test
+    public void test1_returnsExpectedValues() {
+        check(3, 50, 96);
+        check(100, 50, 100);
+        check(10, 25, 40);
+        check(1, 1000, 1024);
+    }
+
+    private void check(int start, int limit, int expected) {
+        int actual = doubleUntilLimit(start, limit);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: doubleUntilLimit(" + start + ", " + limit + ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int doubleUntilLimit(int start, int limit) {
+    int value = start;
+    while (value < limit) {
+        value *= 2;
+    }
+    return value;
+}

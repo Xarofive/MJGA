@@ -1,0 +1,67 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task11_3 {
+    @Test
+    public void test1_buildsSortedFrequencyReport() {
+        check(new String[]{"apple", "apple", "pear", "berry", "pear"},
+                new ArrayList<>(Arrays.asList("apple 2", "berry 1", "pear 2")));
+    }
+
+    @Test
+    public void test2_handlesEmptyAndSingleCategory() {
+        check(new String[0], new ArrayList<>(Arrays.asList("EMPTY")));
+        check(new String[]{"java", "java"}, new ArrayList<>(Arrays.asList("java 2")));
+    }
+
+    private void check(String[] categories, ArrayList<String> expected) {
+        ArrayList<String> actual = frequencyReport(categories);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался отчет " + expected + ", но получен " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static ArrayList<String> frequencyReport(String[] categories) {
+    if (categories.length == 0) {
+        return new ArrayList<>(Arrays.asList("EMPTY"));
+    }
+
+    HashMap<String, Integer> counts = new HashMap<>();
+    for (String category : categories) {
+        Integer count = counts.get(category);
+        if (count == null) {
+            counts.put(category, 1);
+        } else {
+            counts.put(category, count + 1);
+        }
+    }
+
+    ArrayList<String> names = new ArrayList<>(counts.keySet());
+    Collections.sort(names);
+
+    ArrayList<String> result = new ArrayList<>();
+    for (String name : names) {
+        result.add(name + " " + counts.get(name));
+    }
+    return result;
+}

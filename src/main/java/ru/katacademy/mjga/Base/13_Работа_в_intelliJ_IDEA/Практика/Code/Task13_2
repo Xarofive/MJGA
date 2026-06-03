@@ -1,0 +1,74 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task13_2 {
+    @Test
+    public void test1_addsRewardPoints() {
+        UserAccount account = new UserAccount();
+        account.owner = "Alice";
+        account.points = 10;
+
+        if (!UserAccount.reward(account, 5)) {
+            failWithoutStackTrace("Начисление положительного количества баллов должно вернуть true.");
+        }
+        check("Alice: 15 points", account.status());
+    }
+
+    @Test
+    public void test2_rejectsInvalidReward() {
+        UserAccount account = new UserAccount();
+        account.owner = "Bob";
+        account.points = 7;
+
+        if (UserAccount.reward(account, -3)) {
+            failWithoutStackTrace("Начисление отрицательного количества баллов должно вернуть false.");
+        }
+        if (UserAccount.reward(null, 10)) {
+            failWithoutStackTrace("Начисление баллов для null должно вернуть false.");
+        }
+        check("Bob: 7 points", account.status());
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class UserAccount {
+    String owner;
+    int points;
+
+    void addPoints(int amount) {
+        if (amount > 0) {
+            points += amount;
+        }
+    }
+
+    String status() {
+        return owner + ": " + points + " points";
+    }
+
+    static boolean reward(UserAccount account, int amount) {
+        if (account == null || amount <= 0) {
+            return false;
+        }
+        account.addPoints(amount);
+        return true;
+    }
+}

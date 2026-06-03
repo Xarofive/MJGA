@@ -1,0 +1,78 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9_2 {
+    @Test
+    public void test1_parsesCsvNumbers() {
+        check("1,2,3", new int[]{1, 2, 3});
+        check(" 10 , -5 , 0 ", new int[]{10, -5, 0});
+    }
+
+    @Test
+    public void test2_rejectsBadCsv() {
+        checkException("", "empty input");
+        checkException("5,,7", "1");
+        checkException("1,abc,3", "abc");
+    }
+
+    private void check(String input, int[] expected) {
+        int[] actual = parseCsvInts(input);
+        if (!Arrays.equals(expected, actual)) {
+            failWithoutStackTrace("Для строки \"" + input + "\" ожидался массив " +
+                    Arrays.toString(expected) + ", но получен " + Arrays.toString(actual) + ".");
+        }
+    }
+
+    private void checkException(String input, String expectedMessagePart) {
+        try {
+            parseCsvInts(input);
+            failWithoutStackTrace("Метод должен выбросить IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains(expectedMessagePart)) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать \"" + expectedMessagePart + "\".");
+            }
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int[] parseCsvInts(String input) {
+    if (input == null) {
+        throw new IllegalArgumentException("input is null");
+    }
+    if (input.trim().isEmpty()) {
+        throw new IllegalArgumentException("empty input");
+    }
+
+    String[] parts = input.split(",");
+    int[] result = new int[parts.length];
+    for (int i = 0; i < parts.length; i++) {
+        String cleaned = parts[i].trim();
+        if (cleaned.isEmpty()) {
+            throw new IllegalArgumentException("empty element at index " + i);
+        }
+
+        try {
+            result[i] = Integer.parseInt(cleaned);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("invalid element at index " + i + ": " + cleaned);
+        }
+    }
+
+    return result;
+}

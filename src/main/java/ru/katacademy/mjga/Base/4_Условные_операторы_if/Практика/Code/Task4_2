@@ -1,0 +1,51 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_2 {
+
+    @Test
+    public void test1_orderPriorityReturnsExpectedValues() {
+        check(50, true, "rush");
+        check(150, false, "priority");
+        check(75, false, "standard");
+        check(0, true, "invalid");
+        check(200, true, "rush");
+        check(100, false, "standard");
+        check(101, false, "priority");
+    }
+
+    private void check(int total, boolean express, String expected) {
+        String actual = orderPriority(total, express);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: orderPriority(" + total + ", " + express +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String orderPriority(int total, boolean express) {
+    if (total <= 0) {
+        return "invalid";
+    }
+    if (express) {
+        return "rush";
+    }
+    if (total > 100) {
+        return "priority";
+    }
+    return "standard";
+}

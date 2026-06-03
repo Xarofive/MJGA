@@ -1,0 +1,69 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task6_9 {
+    private static final String EXPECTED_OUTPUT = "27\n82\n41\n124\n62\n31\n94\n47\n142\n71\n214\n107\n322\n161\n484\n242\n121\n364\n182\n91\n274\n137\n412\n206\n103\n310\n155\n466\n233\n700\n350\n175\n526\n263\n790\n395\n1186\n593\n1780\n890\n445\n1336\n668\n334\n167\n502\n251\n754\n377\n1132\n566\n283\n850\n425\n1276\n638\n319\n958\n479\n1438\n719\n2158\n1079\n3238\n1619\n4858\n2429\n7288\n3644\n1822\n911\n2734\n1367\n4102\n2051\n6154\n3077\n9232\n4616\n2308\n1154\n577\n1732\n866\n433\n1300\n650\n325\n976\n488\n244\n122\n61\n184\n92\n46\n23\n70\n35\n106\n53\n160\n80\n40\n20\n10\n5\n16\n8\n4\n2\n1\n";
+
+    @Test
+    public void test1_printsExactText() {
+        String actualOutput = runAndReadOutput();
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace("Тест не пройден.\nОжидался вывод последовательности Коллатца от 27 до 1.\nПолучен вывод: " + showText(actualOutput));
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            runSolution();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void runSolution() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+int n = 27;
+int steps = 0;
+while (n != 1) {
+    System.out.println(n);
+    if (steps > 1000) {
+        System.out.println("limit exceeded");
+        break;
+    }
+    if (n % 2 == 0) {
+        n = n / 2;
+    } else {
+        n = n * 3 + 1;
+    }
+    steps++;
+}
+System.out.println(n);

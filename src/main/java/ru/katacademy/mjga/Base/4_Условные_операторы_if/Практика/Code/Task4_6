@@ -1,0 +1,67 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_6 {
+
+    @Test
+    public void test1_streamQualityReturnsExpectedValues() {
+        check(30, false, "ultra");
+        check(18, true, "medium");
+        check(5, false, "low");
+        check(9, false, "medium");
+        check(20, false, "high");
+        check(0, false, "invalid");
+        check(7, false, "low");
+        check(8, false, "medium");
+        check(14, false, "medium");
+        check(15, false, "high");
+        check(24, false, "high");
+        check(25, false, "ultra");
+        check(14, true, "low");
+        check(15, true, "medium");
+        check(100, true, "medium");
+    }
+
+    private void check(int speed, boolean congested, String expected) {
+        String actual = streamQuality(speed, congested);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: streamQuality(" + speed + ", " + congested +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String streamQuality(int speed, boolean congested) {
+    if (speed <= 0) {
+        return "invalid";
+    }
+    if (congested) {
+        if (speed < 15) {
+            return "low";
+        }
+        return "medium";
+    }
+    if (speed < 8) {
+        return "low";
+    } else if (speed < 15) {
+        return "medium";
+    } else if (speed < 25) {
+        return "high";
+    } else {
+        return "ultra";
+    }
+}

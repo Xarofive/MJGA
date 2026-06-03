@@ -1,0 +1,47 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task5_4 {
+
+    @Test
+    public void test1_returnsExpectedValues() {
+        check(1234, 10);
+        check(567, 18);
+        check(0, 0);
+        check(-123, 6);
+        check(-9005, 14);
+    }
+
+    private void check(int n, int expected) {
+        int actual = sumDigits(n);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: sumDigits(" + String.valueOf(n) + ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int sumDigits(int n) {
+    if (n < 0) {
+        n = -n;
+    }
+    int sum = 0;
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}

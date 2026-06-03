@@ -1,0 +1,88 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9_4 {
+    @Test
+    public void test1_readsRequiredLines() throws IOException {
+        check("first\nsecond\nthird\n", 3, new String[]{"first", "second", "third"});
+        check(" alpha \n\n beta \n", 2, new String[]{"alpha", "beta"});
+        check("one\n", 0, new String[0]);
+    }
+
+    @Test
+    public void test2_rejectsInvalidInput() throws IOException {
+        checkException("one\n \ntwo\n", 3, "2");
+        try {
+            readNLines(null, 1);
+            failWithoutStackTrace("Для null reader должен быть IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains("reader is null")) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать reader is null.");
+            }
+        }
+    }
+
+    private void check(String input, int n, String[] expected) throws IOException {
+        String[] actual = readNLines(new BufferedReader(new StringReader(input)), n);
+        if (!Arrays.equals(expected, actual)) {
+            failWithoutStackTrace("Ожидался массив " + Arrays.toString(expected) +
+                    ", но получен " + Arrays.toString(actual) + ".");
+        }
+    }
+
+    private void checkException(String input, int n, String expectedMessagePart) throws IOException {
+        try {
+            readNLines(new BufferedReader(new StringReader(input)), n);
+            failWithoutStackTrace("Если строк не хватает, метод должен выбросить IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains(expectedMessagePart)) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать \"" + expectedMessagePart + "\".");
+            }
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String[] readNLines(BufferedReader reader, int n) throws IOException {
+    if (reader == null) {
+        throw new IllegalArgumentException("reader is null");
+    }
+    if (n < 0) {
+        throw new IllegalArgumentException("negative count");
+    }
+
+    String[] result = new String[n];
+    int count = 0;
+    String line;
+    while (count < n && (line = reader.readLine()) != null) {
+        String cleaned = line.trim();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+        result[count] = cleaned;
+        count++;
+    }
+
+    if (count < n) {
+        throw new IllegalArgumentException("need " + n + " got " + count);
+    }
+    return result;
+}

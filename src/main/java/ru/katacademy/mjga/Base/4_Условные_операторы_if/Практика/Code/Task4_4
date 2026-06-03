@@ -1,0 +1,55 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_4 {
+
+    @Test
+    public void test1_hydrationReminderReturnsExpectedValues() {
+        check(35, 20, "bring bottle");
+        check(18, 120, "bring bottle");
+        check(25, 40, "optional");
+        check(15, 10, "no need");
+        check(-35, 20, "invalid");
+        check(30, 10, "optional");
+        check(31, 10, "bring bottle");
+        check(10, 29, "no need");
+        check(10, 30, "optional");
+        check(10, 90, "optional");
+        check(10, 91, "bring bottle");
+    }
+
+    private void check(int temp, int minutesOutside, String expected) {
+        String actual = hydrationReminder(temp, minutesOutside);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: hydrationReminder(" + temp + ", " + minutesOutside +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String hydrationReminder(int temp, int minutesOutside) {
+    if (temp < -30 || minutesOutside < 0) {
+        return "invalid";
+    }
+    if (temp > 30 || minutesOutside > 90) {
+        return "bring bottle";
+    }
+    if ((temp >= 20 && temp <= 30) || (minutesOutside >= 30 && minutesOutside <= 90)) {
+        return "optional";
+    }
+    return "no need";
+}

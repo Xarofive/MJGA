@@ -1,0 +1,45 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_6 {
+    @Test
+    public void test1_joinsNumbers() {
+        check(new int[]{1, 2, 3}, "1,2,3");
+        check(new int[]{}, "");
+        check(new int[]{42}, "42");
+        check(new int[]{-5, 0, 10}, "-5,0,10");
+    }
+
+    private void check(int[] nums, String expected) {
+        String actual = joinNumbers(nums);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: joinNumbers должен вернуть \"" + expected +
+                    "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String joinNumbers(int[] nums) {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < nums.length; i++) {
+        if (i > 0) {
+            builder.append(',');
+        }
+        builder.append(nums[i]);
+    }
+    return builder.toString();
+}

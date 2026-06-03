@@ -1,0 +1,81 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task12_3 {
+    @Test
+    public void test1_depositsAndWithdrawsMoney() {
+        BankAccount account = new BankAccount();
+        account.owner = "Alice";
+        account.deposit(100);
+
+        if (!account.withdraw(20)) {
+            failWithoutStackTrace("Снятие 20 со счета 100 должно вернуть true.");
+        }
+
+        check(80, account.getBalance());
+        check("Alice: 80", account.getInfo());
+    }
+
+    @Test
+    public void test2_rejectsWithdrawalWhenMoneyIsNotEnough() {
+        BankAccount account = new BankAccount();
+        account.owner = "Bob";
+        account.deposit(50);
+
+        if (account.withdraw(70)) {
+            failWithoutStackTrace("Снятие суммы больше баланса должно вернуть false.");
+        }
+        check(50, account.getBalance());
+    }
+
+    private void check(int expected, int actual) {
+        if (expected != actual) {
+            failWithoutStackTrace("Ожидалось значение " + expected + ", но получено " + actual + ".");
+        }
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class BankAccount {
+    String owner;
+    int balance;
+
+    void deposit(int amount) {
+        balance += amount;
+    }
+
+    boolean withdraw(int amount) {
+        if (amount > balance) {
+            return false;
+        }
+        balance -= amount;
+        return true;
+    }
+
+    int getBalance() {
+        return balance;
+    }
+
+    String getInfo() {
+        return owner + ": " + balance;
+    }
+}

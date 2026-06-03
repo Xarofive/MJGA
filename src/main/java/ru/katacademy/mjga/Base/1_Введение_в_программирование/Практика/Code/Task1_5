@@ -1,0 +1,65 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_5 {
+
+    private static final String EXPECTED_OUTPUT = "Hello Kata Academy\n";
+
+    @Test
+    public void test1_printsExactText() {
+        String actualOutput = runAndReadOutput();
+
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace(
+                    "Тест не пройден.\n" +
+                            "Ожидался ровно такой вывод: " + showText(EXPECTED_OUTPUT) + "\n" +
+                            "Получен вывод: " + showText(actualOutput) + "\n" +
+                            "Проверьте текст, регистр букв, пробелы и лишние строки."
+            );
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        try {
+            System.setOut(new PrintStream(output));
+            printHelloKataAcademy();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        if (text == null) {
+            return "null";
+        }
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void printHelloKataAcademy() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+System.out.println("Hello Kata Academy");

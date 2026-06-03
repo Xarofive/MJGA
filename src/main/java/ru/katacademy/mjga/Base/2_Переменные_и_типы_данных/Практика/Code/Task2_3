@@ -1,0 +1,65 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task2_3 {
+
+    private static final String EXPECTED_OUTPUT = "25 (int)\n99.99 (double)\nAlice (String)\ntrue (boolean)\n";
+
+    @Test
+    public void test1_printsExactText() {
+        String actualOutput = runAndReadOutput();
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace("Тест не пройден.\nОжидался вывод: " + showText(EXPECTED_OUTPUT) +
+                    "\nПолучен вывод: " + showText(actualOutput) +
+                    "\nПроверьте формат: значение, пробел и тип в скобках.");
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            runSolution();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void runSolution() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+int n = 25;
+double price = 99.99;
+String name = "Alice";
+boolean active = true;
+
+System.out.println(n + " (int)");
+System.out.println(price + " (double)");
+System.out.println(name + " (String)");
+System.out.println(active + " (boolean)");

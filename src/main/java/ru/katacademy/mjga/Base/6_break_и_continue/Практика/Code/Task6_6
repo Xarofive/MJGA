@@ -1,0 +1,69 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task6_6 {
+    private static final String EXPECTED_OUTPUT = "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\nFizz\n22\n23\nFizz\nBuzz\n26\nFizz\n28\n29\nFizzBuzz\n";
+
+    @Test
+    public void test1_printsExactText() {
+        String actualOutput = runAndReadOutput();
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace("Тест не пройден.\nОжидался вывод: " + showText(EXPECTED_OUTPUT) +
+                    "\nПолучен вывод: " + showText(actualOutput) + "\nПроверьте порядок guard clauses и диапазон 1..30.");
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            runSolution();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void runSolution() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+for (int i = 1; i <= 30; i++) {
+    if (i % 15 == 0) {
+        System.out.println("FizzBuzz");
+        continue;
+    }
+    if (i % 3 == 0) {
+        System.out.println("Fizz");
+        continue;
+    }
+    if (i % 5 == 0) {
+        System.out.println("Buzz");
+        continue;
+    }
+    System.out.println(i);
+}

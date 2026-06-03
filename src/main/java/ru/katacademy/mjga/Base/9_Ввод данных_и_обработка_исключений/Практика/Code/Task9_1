@@ -1,0 +1,67 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9_1 {
+    @Test
+    public void test1_parsesValidNumbers() {
+        check("42", 42);
+        check(" -7 ", -7);
+        check("+5", 5);
+    }
+
+    @Test
+    public void test2_rejectsInvalidInput() {
+        checkException(null, "input is null");
+        checkException("   ", "empty input");
+        checkException("12px", "12px");
+    }
+
+    private void check(String text, int expected) {
+        int actual = safeParseInt(text);
+        if (actual != expected) {
+            failWithoutStackTrace("Ожидалось " + expected + ", но метод вернул " + actual + ".");
+        }
+    }
+
+    private void checkException(String text, String expectedMessagePart) {
+        try {
+            safeParseInt(text);
+            failWithoutStackTrace("Метод должен выбросить IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains(expectedMessagePart)) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать \"" + expectedMessagePart + "\".");
+            }
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int safeParseInt(String text) {
+    if (text == null) {
+        throw new IllegalArgumentException("input is null");
+    }
+
+    String cleaned = text.trim();
+    if (cleaned.isEmpty()) {
+        throw new IllegalArgumentException("empty input");
+    }
+
+    try {
+        return Integer.parseInt(cleaned);
+    } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("invalid number: " + text);
+    }
+}

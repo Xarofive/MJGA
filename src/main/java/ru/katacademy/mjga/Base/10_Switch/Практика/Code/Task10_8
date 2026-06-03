@@ -1,0 +1,52 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_8 {
+    @Test
+    public void test1_returnsKnownAccessLevels() {
+        check("admin", "all");
+        check("Administrator", "all");
+        check("Moderator", "write");
+        check(" guest ", "read");
+        check("blocked", "none");
+    }
+
+    @Test
+    public void test2_handlesUnknownRoles() {
+        check("owner", "unknown");
+        check("", "unknown");
+    }
+
+    private void check(String role, String expected) {
+        String actual = accessLevel(role);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для роли \"" + role + "\" ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String accessLevel(String role) {
+    String normalized = role.trim().toLowerCase();
+    return switch (normalized) {
+        case "admin", "administrator", "root" -> "all";
+        case "editor", "moderator" -> "write";
+        case "viewer", "reader", "guest" -> "read";
+        case "banned", "blocked" -> "none";
+        default -> "unknown";
+    };
+}

@@ -1,0 +1,76 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_7 {
+    @Test
+    public void test1_processesCommands() throws IOException {
+        String input = "upper hello\nlower JAVA\nlen test\n?\nunknown data\nquit\n";
+        String expected = "HELLO\njava\n4\ncommands: upper, lower, trim, len, help, quit\nUNKNOWN COMMAND\nbye\n";
+        check(input, expected);
+    }
+
+    @Test
+    public void test2_preservesTextAfterCommand() throws IOException {
+        String input = "trim   hello world  \nupper java base\nexit\n";
+        String expected = "hello world\nJAVA BASE\nbye\n";
+        check(input, expected);
+    }
+
+    private void check(String input, String expected) throws IOException {
+        StringWriter output = new StringWriter();
+        processTextCommands(new BufferedReader(new StringReader(input)), new PrintWriter(output, true));
+        String actual = output.toString().replace("\r\n", "\n");
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидался вывод:\n" + expected + "Но получен:\n" + actual);
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static void processTextCommands(BufferedReader reader, PrintWriter writer) throws IOException {
+    String line;
+    while ((line = reader.readLine()) != null) {
+        String command;
+        String text;
+        int spaceIndex = line.indexOf(' ');
+        if (spaceIndex == -1) {
+            command = line.trim().toLowerCase();
+            text = "";
+        } else {
+            command = line.substring(0, spaceIndex).trim().toLowerCase();
+            text = line.substring(spaceIndex + 1);
+        }
+
+        switch (command) {
+            case "upper" -> writer.println(text.toUpperCase());
+            case "lower" -> writer.println(text.toLowerCase());
+            case "trim" -> writer.println(text.trim());
+            case "len" -> writer.println(text.length());
+            case "help", "?" -> writer.println("commands: upper, lower, trim, len, help, quit");
+            case "quit", "exit", "q" -> {
+                writer.println("bye");
+                return;
+            }
+            default -> writer.println("UNKNOWN COMMAND");
+        }
+    }
+}

@@ -1,0 +1,82 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9_3 {
+    @Test
+    public void test1_calculatesOperations() {
+        check(2, 3, "+", 5);
+        check(5, 2, "-", 3);
+        check(4, 3, "*", 12);
+        check(7, 2, "/", 3);
+    }
+
+    @Test
+    public void test2_rejectsInvalidOperations() {
+        checkArithmeticException(10, 0, "/");
+        checkIllegalArgumentException(1, 2, "%", "%");
+        checkIllegalArgumentException(1, 2, null, "null");
+    }
+
+    private void check(int a, int b, String op, int expected) {
+        int actual = calcOp(a, b, op);
+        if (actual != expected) {
+            failWithoutStackTrace("Операция должна вернуть " + expected + ", но вернула " + actual + ".");
+        }
+    }
+
+    private void checkArithmeticException(int a, int b, String op) {
+        try {
+            calcOp(a, b, op);
+            failWithoutStackTrace("Деление на ноль должно выбросить ArithmeticException.");
+        } catch (ArithmeticException e) {
+            if (e.getMessage() == null || !e.getMessage().contains("divide by zero")) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать divide by zero.");
+            }
+        }
+    }
+
+    private void checkIllegalArgumentException(int a, int b, String op, String expectedMessagePart) {
+        try {
+            calcOp(a, b, op);
+            failWithoutStackTrace("Неизвестная операция должна выбросить IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains(expectedMessagePart)) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать \"" + expectedMessagePart + "\".");
+            }
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int calcOp(int a, int b, String op) {
+    if ("+".equals(op)) {
+        return a + b;
+    }
+    if ("-".equals(op)) {
+        return a - b;
+    }
+    if ("*".equals(op)) {
+        return a * b;
+    }
+    if ("/".equals(op)) {
+        if (b == 0) {
+            throw new ArithmeticException("divide by zero");
+        }
+        return a / b;
+    }
+
+    throw new IllegalArgumentException("unknown operation: " + op);
+}

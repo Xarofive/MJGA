@@ -1,0 +1,54 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task13_1 {
+    @Test
+    public void test1_calculatesFinalPrice() {
+        check(180, OrderCalculator.calculateFinalPrice(100, 2, 10));
+        check(300, OrderCalculator.calculateFinalPrice(100, 3, 0));
+        check(0, OrderCalculator.calculateFinalPrice(100, 3, 100));
+    }
+
+    @Test
+    public void test2_handlesInvalidValues() {
+        check(0, OrderCalculator.calculateFinalPrice(0, 2, 10));
+        check(0, OrderCalculator.calculateFinalPrice(100, 0, 10));
+        check(0, OrderCalculator.calculateFinalPrice(100, 2, -1));
+        check(0, OrderCalculator.calculateFinalPrice(100, 2, 150));
+    }
+
+    private void check(int expected, int actual) {
+        if (expected != actual) {
+            failWithoutStackTrace("Ожидалось значение " + expected + ", но получено " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class OrderCalculator {
+    static int calculateFinalPrice(int price, int quantity, int discountPercent) {
+        if (price <= 0 || quantity <= 0 || discountPercent < 0) {
+            return 0;
+        }
+        if (discountPercent > 100) {
+            discountPercent = 100;
+        }
+
+        int total = price * quantity;
+        int discountAmount = total * discountPercent / 100;
+        return total - discountAmount;
+    }
+}

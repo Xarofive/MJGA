@@ -1,0 +1,48 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_7 {
+
+    @Test
+    public void test1_passwordStatusReturnsExpectedValues() {
+        check(5, "too short");
+        check(8, "ok");
+        check(17, "too long");
+        check(16, "ok");
+        check(0, "too short");
+        check(7, "too short");
+        check(9, "ok");
+    }
+
+    private void check(int length, String expected) {
+        String actual = passwordStatus(length);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: passwordStatus(" + length +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String passwordStatus(int length) {
+    if (length < 8) {
+        return "too short";
+    }
+    if (length > 16) {
+        return "too long";
+    }
+    return "ok";
+}

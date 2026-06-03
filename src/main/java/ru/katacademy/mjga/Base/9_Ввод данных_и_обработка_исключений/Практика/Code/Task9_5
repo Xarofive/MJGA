@@ -1,0 +1,81 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task9_5 {
+    @Test
+    public void test1_sumsNumbers() throws IOException {
+        check("10\n20\n30\n", 60);
+        check("5\n \n-3\n8\n", 10);
+        check("0\n-10\n10\n", 0);
+    }
+
+    @Test
+    public void test2_rejectsBadInput() throws IOException {
+        checkException("100\nabc\n200\n", "abc");
+        checkException(" \n\t\n", "no numbers");
+    }
+
+    private void check(String input, int expected) throws IOException {
+        int actual = sumInts(new BufferedReader(new StringReader(input)));
+        if (actual != expected) {
+            failWithoutStackTrace("Ожидалась сумма " + expected + ", но метод вернул " + actual + ".");
+        }
+    }
+
+    private void checkException(String input, String expectedMessagePart) throws IOException {
+        try {
+            sumInts(new BufferedReader(new StringReader(input)));
+            failWithoutStackTrace("Метод должен выбросить IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() == null || !e.getMessage().contains(expectedMessagePart)) {
+                failWithoutStackTrace("Сообщение ошибки должно содержать \"" + expectedMessagePart + "\".");
+            }
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int sumInts(BufferedReader reader) throws IOException {
+    if (reader == null) {
+        throw new IllegalArgumentException("reader is null");
+    }
+
+    int sum = 0;
+    boolean foundNumber = false;
+    String line;
+    while ((line = reader.readLine()) != null) {
+        String cleaned = line.trim();
+        if (cleaned.isEmpty()) {
+            continue;
+        }
+
+        try {
+            sum += Integer.parseInt(cleaned);
+            foundNumber = true;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("invalid number: " + cleaned);
+        }
+    }
+
+    if (!foundNumber) {
+        throw new IllegalArgumentException("no numbers");
+    }
+    return sum;
+}

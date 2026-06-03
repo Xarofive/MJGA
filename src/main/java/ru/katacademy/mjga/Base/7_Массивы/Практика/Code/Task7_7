@@ -1,0 +1,61 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.util.Arrays;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task7_7 {
+    @Test
+    public void test1_removesRange() {
+        check(new int[]{0, 1, 2, 3, 4, 5, 6}, 2, 5, new int[]{0, 1, 5, 6});
+        check(new int[]{1, 2, 3}, 0, 2, new int[]{3});
+        check(new int[]{1, 2, 3}, 1, 1, new int[]{1, 2, 3});
+        check(new int[]{1, 2, 3}, -1, 2, new int[]{1, 2, 3});
+        check(new int[]{1, 2, 3}, 1, 4, new int[]{1, 2, 3});
+    }
+
+    private void check(int[] array, int from, int to, int[] expected) {
+        int[] original = Arrays.copyOf(array, array.length);
+        int[] actual = removeRange(array, from, to);
+        if (!Arrays.equals(expected, actual)) {
+            failWithoutStackTrace("Тест не пройден: removeRange должен вернуть " + Arrays.toString(expected) +
+                    ", получено " + Arrays.toString(actual) + ".");
+        }
+        if (!Arrays.equals(original, array)) {
+            failWithoutStackTrace("Тест не пройден: исходный массив был изменён.");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int[] removeRange(int[] array, int from, int to) {
+    if (from >= to || from < 0 || to > array.length) {
+        int[] copy = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            copy[i] = array[i];
+        }
+        return copy;
+    }
+    int[] result = new int[array.length - (to - from)];
+    int index = 0;
+    for (int i = 0; i < array.length; i++) {
+        if (i >= from && i < to) {
+            continue;
+        }
+        result[index] = array[i];
+        index++;
+    }
+    return result;
+}

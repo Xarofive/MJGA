@@ -1,0 +1,41 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_7 {
+    @Test
+    public void test1_findsSubstringIgnoringCase() {
+        check("Hello World", "HELLO", true);
+        check("Programming", "GRAM", true);
+        check("Java", "python", false);
+        check("any string", "", true);
+    }
+
+    private void check(String s, String sub, boolean expected) {
+        boolean actual = containsIgnoreCase(s, sub);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: containsIgnoreCase(\"" + s + "\", \"" + sub +
+                    "\") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static boolean containsIgnoreCase(String s, String sub) {
+    if (sub.isEmpty()) {
+        return true;
+    }
+    return s.toLowerCase().contains(sub.toLowerCase());
+}

@@ -1,0 +1,58 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_3 {
+    @Test
+    public void test1_countsEnglishLetters() {
+        check("Hello", "2 3");
+        check("Java 21!", "2 2");
+        check("AEIOU", "5 0");
+    }
+
+    @Test
+    public void test2_ignoresNonEnglishLetters() {
+        check("Привет!", "0 0");
+        check("", "0 0");
+    }
+
+    private void check(String text, String expected) {
+        String actual = countVowelsAndConsonants(text);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для строки \"" + text + "\" ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String countVowelsAndConsonants(String text) {
+    int vowels = 0;
+    int consonants = 0;
+
+    for (int i = 0; i < text.length(); i++) {
+        char ch = Character.toLowerCase(text.charAt(i));
+        switch (ch) {
+            case 'a', 'e', 'i', 'o', 'u' -> vowels++;
+            default -> {
+                if (ch >= 'a' && ch <= 'z') {
+                    consonants++;
+                }
+            }
+        }
+    }
+
+    return vowels + " " + consonants;
+}

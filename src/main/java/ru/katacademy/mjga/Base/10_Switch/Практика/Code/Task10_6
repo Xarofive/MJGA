@@ -1,0 +1,62 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task10_6 {
+    @Test
+    public void test1_parsesByteValues() {
+        check("0", "OK: 0");
+        check("255", "OK: 255");
+        check(" 7 ", "OK: 7");
+    }
+
+    @Test
+    public void test2_returnsErrors() {
+        check("256", "RANGE ERROR");
+        check("-1", "RANGE ERROR");
+        check("12px", "FORMAT ERROR");
+    }
+
+    private void check(String input, String expected) {
+        String actual = parseByteStatus(input);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Для ввода \"" + input + "\" ожидалось \"" + expected +
+                    "\", но метод вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+public static String parseByteStatus(String input) {
+    int status;
+    int value = 0;
+
+    try {
+        value = Integer.parseInt(input.trim());
+        if (value < 0 || value > 255) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+    } catch (NumberFormatException e) {
+        status = 2;
+    }
+
+    return switch (status) {
+        case 0 -> "OK: " + value;
+        case 1 -> "RANGE ERROR";
+        default -> "FORMAT ERROR";
+    };
+}

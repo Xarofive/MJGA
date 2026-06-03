@@ -1,0 +1,52 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task8_3 {
+    @Test
+    public void test1_reversesCodePoints() {
+        check("abc", "cba");
+        check("Привет", "тевирП");
+        check("Java🚀", "🚀avaJ");
+        check("", "");
+    }
+
+    private void check(String s, String expected) {
+        String actual = reverseCodePoints(s);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: reverseCodePoints(\"" + s +
+                    "\") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String reverseCodePoints(String s) {
+    int[] codePoints = s.codePoints().toArray();
+    int left = 0;
+    int right = codePoints.length - 1;
+    while (left < right) {
+        int temp = codePoints[left];
+        codePoints[left] = codePoints[right];
+        codePoints[right] = temp;
+        left++;
+        right--;
+    }
+    StringBuilder builder = new StringBuilder();
+    for (int codePoint : codePoints) {
+        builder.appendCodePoint(codePoint);
+    }
+    return builder.toString();
+}

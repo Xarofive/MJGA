@@ -1,0 +1,57 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task12_6 {
+    @Test
+    public void test1_returnsStudentCard() {
+        Student student = new Student();
+        student.name = "Alice";
+        student.age = 20;
+        student.averageGrade = 4.7;
+
+        check("Student: Alice, age: 20, grade: 4.7", student.getCard());
+        check("Student: Alice, age: 20, grade: 4.7", Student.getCardOrDefault(student));
+    }
+
+    @Test
+    public void test2_handlesNullStudent() {
+        check("No student", Student.getCardOrDefault(null));
+    }
+
+    private void check(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Ожидалась строка \"" + expected + "\", но получена \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+}
+
+//START_STUDENT_PLACEHOLDER//
+// Твой код
+//END_STUDENT_PLACEHOLDER//
+
+// ожидаемый код решения
+
+class Student {
+    String name;
+    int age;
+    double averageGrade;
+
+    String getCard() {
+        return "Student: " + name + ", age: " + age + ", grade: " + averageGrade;
+    }
+
+    static String getCardOrDefault(Student student) {
+        if (student == null) {
+            return "No student";
+        }
+        return student.getCard();
+    }
+}

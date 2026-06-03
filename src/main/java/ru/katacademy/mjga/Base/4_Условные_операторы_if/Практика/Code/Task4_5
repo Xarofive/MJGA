@@ -1,0 +1,55 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_5 {
+
+    @Test
+    public void test1_deliveryLabelReturnsExpectedValues() {
+        check(5, true, "handle with care");
+        check(11, true, "special handling");
+        check(6, false, "standard");
+        check(15, false, "bulk");
+        check(10, true, "handle with care");
+        check(10, false, "standard");
+        check(0, false, "invalid");
+        check(-1, true, "invalid");
+    }
+
+    private void check(int weight, boolean fragile, String expected) {
+        String actual = deliveryLabel(weight, fragile);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: deliveryLabel(" + weight + ", " + fragile +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String deliveryLabel(int weight, boolean fragile) {
+    if (weight <= 0) {
+        return "invalid";
+    }
+    if (fragile) {
+        if (weight <= 10) {
+            return "handle with care";
+        }
+        return "special handling";
+    }
+    if (weight <= 10) {
+        return "standard";
+    }
+    return "bulk";
+}

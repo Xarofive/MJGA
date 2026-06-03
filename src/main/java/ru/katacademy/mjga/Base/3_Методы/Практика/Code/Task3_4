@@ -1,0 +1,41 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task3_4 {
+
+    @Test
+    public void test1_buildGreetingUsesNameInReturnedText() {
+        check("Анна");
+        check("Мир");
+        check("Java");
+    }
+
+    private void check(String name) {
+        String actual = buildGreeting(name);
+        if (actual == null || actual.isEmpty()) {
+            failWithoutStackTrace("Тест не пройден: buildGreeting(\"" + name + "\") должен вернуть непустую строку.");
+        }
+        if (!actual.contains(name)) {
+            failWithoutStackTrace("Тест не пройден: buildGreeting(\"" + name +
+                    "\") должен вернуть строку, в которой используется переданное имя. Получено: \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String buildGreeting(String name) {
+    return "Привет, " + name + "!";
+}

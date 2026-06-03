@@ -1,0 +1,40 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task3_2 {
+
+    @Test
+    public void test1_sumReturnsExpectedValues() {
+        check(2, 3, 5);
+        check(0, 0, 0);
+        check(-1, 5, 4);
+        check(100, 200, 300);
+        check(-10, -20, -30);
+    }
+
+    private void check(int a, int b, int expected) {
+        int actual = sum(a, b);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: sum(" + a + ", " + b + ") должен вернуть " +
+                    expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int sum(int a, int b) {
+    return a + b;
+}

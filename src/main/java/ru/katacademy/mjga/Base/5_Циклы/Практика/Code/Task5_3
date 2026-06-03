@@ -1,0 +1,43 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task5_3 {
+
+    @Test
+    public void test1_returnsExpectedValues() {
+        check(2, 3, 8);
+        check(5, 0, 1);
+        check(7, 1, 7);
+        check(1, 100, 1);
+        check(3, 4, 81);
+    }
+
+    private void check(int x, int n, int expected) {
+        int actual = power(x, n);
+        if (actual != expected) {
+            failWithoutStackTrace("Тест не пройден: power(" + x + ", " + n + ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int power(int x, int n) {
+    int result = 1;
+    for (int i = 0; i < n; i++) {
+        result *= x;
+    }
+    return result;
+}

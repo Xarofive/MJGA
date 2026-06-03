@@ -1,0 +1,45 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task4_9 {
+
+    @Test
+    public void test1_accessStatusReturnsExpectedValues() {
+        check(20, true, false, "allowed");
+        check(16, false, true, "allowed");
+        check(17, true, false, "denied");
+        check(20, false, false, "denied");
+        check(18, true, false, "allowed");
+        check(20, true, true, "allowed");
+        check(10, true, true, "allowed");
+    }
+
+    private void check(int age, boolean hasTicket, boolean vip, String expected) {
+        String actual = accessStatus(age, hasTicket, vip);
+        if (!expected.equals(actual)) {
+            failWithoutStackTrace("Тест не пройден: accessStatus(" + age + ", " + hasTicket + ", " + vip +
+                    ") должен вернуть \"" + expected + "\", но вернул \"" + actual + "\".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static String accessStatus(int age, boolean hasTicket, boolean vip) {
+    if ((age >= 18 && hasTicket) || vip) {
+        return "allowed";
+    }
+    return "denied";
+}
