@@ -1,0 +1,56 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_12 {
+
+    @Test
+    public void test1_calculatesProductTotal() {
+        Product keyboard = new Product();
+        keyboard.title = "Keyboard";
+        keyboard.priceInCents = 499_900L;
+
+        PriceCalculator calculator = new PriceCalculator();
+        check(calculator.calculateTotal(keyboard, 2), 999_800L);
+    }
+
+    @Test
+    public void test2_usesLongCalculation() {
+        Product expensive = new Product();
+        expensive.title = "Server";
+        expensive.priceInCents = 2_000_000_000L;
+
+        PriceCalculator calculator = new PriceCalculator();
+        check(calculator.calculateTotal(expensive, 3), 6_000_000_000L);
+    }
+
+    private void check(long actual, long expected) {
+        if (actual != expected) {
+            failWithoutStackTrace("Ожидалось значение " + expected + ", но получено " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static class Product {
+    String title;
+    long priceInCents;
+}
+
+static class PriceCalculator {
+    long calculateTotal(Product product, int quantity) {
+        return product.priceInCents * quantity;
+    }
+}

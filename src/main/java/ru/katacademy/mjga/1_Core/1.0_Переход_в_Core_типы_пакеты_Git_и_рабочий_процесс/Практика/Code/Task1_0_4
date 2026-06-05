@@ -1,0 +1,43 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_4 {
+
+    @Test
+    public void test1_checksCheckoutRules() {
+        check(18, 1, false, true);
+        check(17, 1, false, false);
+        check(20, 0, false, false);
+        check(20, 2, true, false);
+        check(30, 5, false, true);
+    }
+
+    private void check(int age, int itemCount, boolean blocked, boolean expected) {
+        boolean actual = canCheckout(age, itemCount, blocked);
+        if (actual != expected) {
+            failWithoutStackTrace("canCheckout(" + age + ", " + itemCount + ", " + blocked +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static boolean canCheckout(int age, int itemCount, boolean blocked) {
+    boolean isAdult = age >= 18;
+    boolean hasItems = itemCount > 0;
+    boolean accountAllowed = !blocked;
+    return isAdult && hasItems && accountAllowed;
+}

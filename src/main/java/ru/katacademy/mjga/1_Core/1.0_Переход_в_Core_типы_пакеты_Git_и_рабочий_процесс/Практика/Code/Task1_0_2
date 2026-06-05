@@ -1,0 +1,46 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_2 {
+
+    @Test
+    public void test1_countsWordsLongerThanLimit() {
+        check(new String[]{"Java", "Core", "if"}, 3, 2);
+        check(new String[]{"", null, "tool"}, 2, 1);
+        check(new String[]{}, 5, 0);
+        check(new String[]{"a", "ab", "abc"}, 2, 1);
+    }
+
+    private void check(String[] words, int minLength, int expected) {
+        int actual = countWordsLongerThan(words, minLength);
+        if (actual != expected) {
+            failWithoutStackTrace("countWordsLongerThan должен вернуть " + expected +
+                    ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int countWordsLongerThan(String[] words, int minLength) {
+    int count = 0;
+    for (int i = 0; i < words.length; i++) {
+        String word = words[i];
+        if (word != null && word.length() > minLength) {
+            count++;
+        }
+    }
+    return count;
+}

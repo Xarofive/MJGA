@@ -1,0 +1,63 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_8 {
+
+    @Test
+    public void test1_calculatesTotalWithoutOverflow() {
+        checkTotal(1000, 3, 3000L);
+        checkTotal(2_000_000_000, 3, 6_000_000_000L);
+        checkTotal(0, 10, 0L);
+        checkTotal(1_500_000_000, 2, 3_000_000_000L);
+    }
+
+    @Test
+    public void test2_calculatesDiscountedPriceWithoutDouble() {
+        checkDiscount(10_000L, 10, 9_000L);
+        checkDiscount(999L, 15, 850L);
+        checkDiscount(5_000L, -1, 5_000L);
+        checkDiscount(5_000L, 101, 5_000L);
+        checkDiscount(5_000L, 100, 0L);
+    }
+
+    private void checkTotal(int priceInCents, int quantity, long expected) {
+        long actual = calculateTotalInCents(priceInCents, quantity);
+        if (actual != expected) {
+            failWithoutStackTrace("calculateTotalInCents(" + priceInCents + ", " + quantity +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void checkDiscount(long priceInCents, int discountPercent, long expected) {
+        long actual = calculateDiscountedPrice(priceInCents, discountPercent);
+        if (actual != expected) {
+            failWithoutStackTrace("calculateDiscountedPrice(" + priceInCents + ", " + discountPercent +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static long calculateTotalInCents(int priceInCents, int quantity) {
+    return (long) priceInCents * quantity;
+}
+
+static long calculateDiscountedPrice(long priceInCents, int discountPercent) {
+    if (discountPercent < 0 || discountPercent > 100) {
+        return priceInCents;
+    }
+    return priceInCents - priceInCents * discountPercent / 100;
+}

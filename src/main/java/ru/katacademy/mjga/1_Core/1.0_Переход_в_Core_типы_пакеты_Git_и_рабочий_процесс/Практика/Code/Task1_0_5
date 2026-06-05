@@ -1,0 +1,46 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_5 {
+
+    @Test
+    public void test1_returnsNextLatinLetter() {
+        check('A', 'B');
+        check('Y', 'Z');
+        check('Z', 'A');
+        check('7', '7');
+        check('a', 'a');
+    }
+
+    private void check(char letter, char expected) {
+        char actual = nextLatinLetter(letter);
+        if (actual != expected) {
+            failWithoutStackTrace("nextLatinLetter('" + letter + "') должен вернуть '" +
+                    expected + "', но вернул '" + actual + "'.");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static char nextLatinLetter(char letter) {
+    if (letter == 'Z') {
+        return 'A';
+    }
+    if (letter >= 'A' && letter < 'Z') {
+        return (char) (letter + 1);
+    }
+    return letter;
+}

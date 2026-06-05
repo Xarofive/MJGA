@@ -1,0 +1,39 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_1 {
+
+    @Test
+    public void test1_calculatesFinalPrice() {
+        check(1000, 10, 900);
+        check(1200, 15, 1020);
+        check(500, 0, 500);
+        check(999, 100, 0);
+    }
+
+    private void check(int price, int discountPercent, int expected) {
+        int actual = calculateFinalPrice(price, discountPercent);
+        if (actual != expected) {
+            failWithoutStackTrace("calculateFinalPrice(" + price + ", " + discountPercent +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int calculateFinalPrice(int price, int discountPercent) {
+    return price - price * discountPercent / 100;
+}

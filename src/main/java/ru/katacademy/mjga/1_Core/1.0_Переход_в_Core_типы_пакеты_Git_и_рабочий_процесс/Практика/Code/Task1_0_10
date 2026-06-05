@@ -1,0 +1,39 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_10 {
+
+    @Test
+    public void test1_truncatesFractionalPart() {
+        check(99.99, 99);
+        check(12.01, 12);
+        check(-3.9, -3);
+        check(0.99, 0);
+    }
+
+    private void check(double value, int expected) {
+        int actual = truncate(value);
+        if (actual != expected) {
+            failWithoutStackTrace("truncate(" + value + ") должен вернуть " +
+                    expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int truncate(double value) {
+    return (int) value;
+}

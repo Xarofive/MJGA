@@ -1,0 +1,42 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_7 {
+
+    @Test
+    public void test1_calculatesAverageAsDouble() {
+        check(5, 2, 2.5);
+        check(10, 4, 2.5);
+        check(7, 0, 0.0);
+        check(1, 4, 0.25);
+    }
+
+    private void check(int sum, int count, double expected) {
+        double actual = average(sum, count);
+        if (Math.abs(actual - expected) > 0.000001) {
+            failWithoutStackTrace("average(" + sum + ", " + count + ") должен вернуть " +
+                    expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static double average(int sum, int count) {
+    if (count == 0) {
+        return 0.0;
+    }
+    return (double) sum / count;
+}

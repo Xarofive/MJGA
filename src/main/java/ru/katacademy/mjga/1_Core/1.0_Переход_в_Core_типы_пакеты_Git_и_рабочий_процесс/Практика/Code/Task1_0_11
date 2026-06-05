@@ -1,0 +1,42 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_11 {
+
+    @Test
+    public void test1_calculatesDeliveryPrice() {
+        check(1000, 10, 24_500L);
+        check(0, 0, 20_000L);
+        check(2_000_000_000, 2, 6_000_020_300L);
+        check(500, 100, 36_500L);
+    }
+
+    private void check(int weightGrams, int distanceKm, long expected) {
+        long actual = calculateDeliveryPriceInCents(weightGrams, distanceKm);
+        if (actual != expected) {
+            failWithoutStackTrace("calculateDeliveryPriceInCents(" + weightGrams + ", " + distanceKm +
+                    ") должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static long calculateDeliveryPriceInCents(int weightGrams, int distanceKm) {
+    long basePrice = 20_000L;
+    long weightPart = (long) weightGrams * 3;
+    long distancePart = (long) distanceKm * 150;
+    return basePrice + weightPart + distancePart;
+}

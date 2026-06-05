@@ -1,0 +1,45 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_6 {
+
+    @Test
+    public void test1_countsActiveFlags() {
+        check(new boolean[]{true, false, true}, 2);
+        check(new boolean[]{false, false}, 0);
+        check(new boolean[]{}, 0);
+        check(new boolean[]{true, true, true, true}, 4);
+    }
+
+    private void check(boolean[] flags, int expected) {
+        int actual = countActive(flags);
+        if (actual != expected) {
+            failWithoutStackTrace("countActive должен вернуть " + expected +
+                    ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int countActive(boolean[] flags) {
+    int count = 0;
+    for (int i = 0; i < flags.length; i++) {
+        if (flags[i]) {
+            count++;
+        }
+    }
+    return count;
+}

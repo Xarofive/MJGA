@@ -1,0 +1,68 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_3 {
+
+    private static final String EXPECTED_OUTPUT = "9000000001\nKeyboard\n499900\n4.8\ntrue\nA\n";
+
+    @Test
+    public void test1_printsProductCard() {
+        String actualOutput = runAndReadOutput();
+        if (!EXPECTED_OUTPUT.equals(actualOutput)) {
+            failWithoutStackTrace("Ожидался вывод: " + showText(EXPECTED_OUTPUT) +
+                    "\nПолучен вывод: " + showText(actualOutput) + ".");
+        }
+    }
+
+    private String runAndReadOutput() {
+        PrintStream originalOut = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            System.setOut(new PrintStream(output));
+            runSolution();
+            return output.toString().replaceAll("\r", "");
+        } catch (Throwable exception) {
+            failWithoutStackTrace("Во время запуска решения возникла ошибка: " + exception);
+            return "";
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+    private String showText(String text) {
+        return "\"" + text.replace("\n", "\\n").replace("\t", "\\t") + "\"";
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    public void runSolution() {
+        //START_STUDENT_PLACEHOLDER//
+        // Твой код
+        //END_STUDENT_PLACEHOLDER//
+    }
+}
+
+// ожидаемый код решения
+
+long productId = 9_000_000_001L;
+String title = "Keyboard";
+long priceInCents = 499_900L;
+double rating = 4.8;
+boolean available = true;
+char category = 'A';
+
+System.out.println(productId);
+System.out.println(title);
+System.out.println(priceInCents);
+System.out.println(rating);
+System.out.println(available);
+System.out.println(category);

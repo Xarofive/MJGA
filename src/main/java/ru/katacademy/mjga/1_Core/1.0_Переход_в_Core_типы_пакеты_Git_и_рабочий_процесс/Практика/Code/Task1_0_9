@@ -1,0 +1,87 @@
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class Task1_0_9 {
+
+    @Test
+    public void test1_sumsBytesAsInt() {
+        checkInt(sumBytes((byte) 10, (byte) 20), 30, "sumBytes");
+        checkInt(sumBytes((byte) -5, (byte) 8), 3, "sumBytes");
+    }
+
+    @Test
+    public void test2_sumsShortsAsInt() {
+        checkInt(sumShorts((short) 1000, (short) 2000), 3000, "sumShorts");
+        checkInt(sumShorts((short) -300, (short) 100), -200, "sumShorts");
+    }
+
+    @Test
+    public void test3_addsByteWithExplicitCast() {
+        checkByte(addByteAndCast((byte) 10, (byte) 20), (byte) 30);
+        checkByte(addByteAndCast((byte) 120, (byte) 10), (byte) -126);
+    }
+
+    @Test
+    public void test4_calculatesFloatCoordinate() {
+        checkFloat(calculateScreenX(10.5f, 2.25f, 4), 19.5f);
+        checkFloat(calculateScreenX(0.0f, 1.5f, 3), 4.5f);
+    }
+
+    @Test
+    public void test5_calculatesDefaultFloatCoordinate() {
+        checkFloat(calculateDefaultScreenX(10.0f, 4), 16.0f);
+        checkFloat(calculateDefaultScreenX(0.5f, 3), 5.0f);
+    }
+
+    private void checkInt(int actual, int expected, String methodName) {
+        if (actual != expected) {
+            failWithoutStackTrace(methodName + " должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void checkByte(byte actual, byte expected) {
+        if (actual != expected) {
+            failWithoutStackTrace("addByteAndCast должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void checkFloat(float actual, float expected) {
+        if (Math.abs(actual - expected) > 0.000001f) {
+            failWithoutStackTrace("calculateScreenX должен вернуть " + expected + ", но вернул " + actual + ".");
+        }
+    }
+
+    private void failWithoutStackTrace(String message) {
+        AssertionError error = new AssertionError(message);
+        error.setStackTrace(new StackTraceElement[0]);
+        throw error;
+    }
+
+    //START_STUDENT_PLACEHOLDER//
+    // Твой код
+    //END_STUDENT_PLACEHOLDER//
+}
+
+// ожидаемый код решения
+
+static int sumBytes(byte first, byte second) {
+    return first + second;
+}
+
+static int sumShorts(short first, short second) {
+    return first + second;
+}
+
+static byte addByteAndCast(byte value, byte increment) {
+    return (byte) (value + increment);
+}
+
+static float calculateScreenX(float startX, float speed, int seconds) {
+    return startX + speed * seconds;
+}
+
+static float calculateDefaultScreenX(float startX, int seconds) {
+    return startX + 1.5f * seconds;
+}
