@@ -15,6 +15,12 @@
 </ul>
 </div>
 
+<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
+
+<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по базовой модели и классическому синтаксису switch.</p>
+</div>
+
 <h2 style="color: #34495e; margin-top: 30px;">1. Зачем нужен switch</h2>
 
 <p>Представьте, что программа получила код команды: <code>"start"</code>, <code>"stop"</code>, <code>"help"</code> или <code>"quit"</code>. Нужно выбрать действие по одному конкретному значению. Можно написать цепочку <code>if</code>, но при большом количестве вариантов код быстро становится шумным.</p>

@@ -15,6 +15,12 @@
 </ul>
 </div>
 
+<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
+
+<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по идиомам switch, fallthrough, ошибкам и управлению потоком.</p>
+</div>
+
 <h2 style="color: #34495e; margin-top: 30px;">1. Команды из пользовательского ввода</h2>
 
 <p>Команды часто приходят как строки: <code>"add"</code>, <code>"list"</code>, <code>"quit"</code>. Перед <code>switch</code> ввод обычно нормализуют: убирают лишние пробелы и приводят к одному регистру.</p>

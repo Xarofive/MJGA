@@ -14,6 +14,12 @@
 </ul>
 </div>
 
+<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
+
+<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по практическим приёмам работы с коллекциями в Java.</p>
+</div>
+
 <h2 style="color: #34495e; margin-top: 30px;">1. HashMap как множество</h2>
 
 <p>В этом модуле множество можно представить как <code>HashMap&lt;Integer, Boolean&gt;</code>. Ключ — сам элемент, значение — отметка <code>true</code>. Нам важно быстро проверить, встречался ли элемент раньше.</p>

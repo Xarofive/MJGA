@@ -7,6 +7,12 @@
 <p style="margin: 0;">Научиться читать данные из стандартного ввода и текстового потока, выбирать подходящий инструмент и аккуратно преобразовывать строки в числа.</p>
 </div>
 
+<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
+<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
+
+<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по вводу данных и обработке строкового ввода в Java.</p>
+</div>
+
 <div style="background: linear-gradient(to right, #ffeaa7, #fdcb6e); border-radius: 8px; padding: 16px; margin: 20px 0;">
 <h3 style="color: #2d3436; margin-top: 0;">💼 Контекст и мотивация</h3>
 <p style="margin-bottom: 10px;">Большинство программ получают данные не из заранее записанных переменных, а извне: из консоли, файла, сетевого ответа или тестового источника. В Java для первых задач удобно использовать <code>Scanner</code>, а для построчного чтения и больших текстов часто берут <code>BufferedReader</code>.</p>
