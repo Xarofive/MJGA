@@ -1,0 +1,118 @@
+Массивы в Java: создание и базовые операции
+
+📌 TL;DR — Суть за 30 секунд
+
+- Массив int[] имеет фиксированную длину после создания
+
+- array.length показывает длину массива
+
+- Индексация начинается с нуля: первый элемент имеет индекс 0
+
+- Выход за границы приводит к ArrayIndexOutOfBoundsException или IndexOutOfBoundsException
+
+🎯 Чему вы научитесь
+
+- ✅ Понимать, что массив имеет фиксированную длину
+
+- ✅ Создавать массивы через литерал и через new
+
+- ✅ Читать и изменять элементы по индексу
+
+- ✅ Перебирать массивы классическим циклом и enhanced for
+
+📚 Предпосылки
+
+Перед этой темой важно уверенно владеть переменными, методами, условными операторами и циклами. Массивы почти всегда обрабатываются через цикл, поэтому ошибки в границах цикла быстро приводят к ошибкам выполнения.
+
+Что значит ошибка выхода за границы
+
+ArrayIndexOutOfBoundsException и IndexOutOfBoundsException — это ошибки времени выполнения. Они появляются, когда программа обращается к несуществующему индексу, например к numbers[5] у массива длиной 5.
+
+1. Массив: фиксированная длина и быстрый доступ по индексу
+
+Массив в Java хранит элементы одного типа и имеет фиксированную длину. Длина задаётся в момент создания и не меняется. Если нужно добавить ещё один элемент, создают новый массив большего размера и копируют данные.
+
+🔎 Что такое import java.util.Arrays
+
+Arrays — это готовый вспомогательный класс из стандартной библиотеки Java для работы с массивами. Чтобы использовать его короткое имя Arrays, в начале файла пишут import java.util.Arrays;.
+
+В этой теме он нужен прежде всего для красивого вывода массива через Arrays.toString(numbers). Без этого Java выведет не содержимое массива, а служебную строку объекта. Позже мы также используем Arrays.copyOf и Arrays.copyOfRange для копирования массивов.
+
+import java.util.Arrays;
+
+public class Main {
+public static void main(String[] args) {
+int[] numbers = {10, 20, 30, 40, 50};
+
+numbers[0] = 15;
+
+System.out.println("Длина: " + numbers.length);
+System.out.println("Первый элемент: " + numbers[0]);
+System.out.println("Массив: " + Arrays.toString(numbers));
+}
+}
+
+📋 Ожидаемый вывод:
+
+Длина: 5
+Первый элемент: 15
+Массив: [15, 20, 30, 40, 50]
+
+2. Значения по умолчанию
+
+Если массив создаётся через new, Java заполняет его значениями по умолчанию. Для int это 0, для boolean — false, для ссылочных типов — null.
+
+import java.util.Arrays;
+
+public class Main {
+public static void main(String[] args) {
+int[] scores = new int[4];
+boolean[] flags = new boolean[3];
+String[] names = new String[2];
+
+System.out.println(Arrays.toString(scores));
+System.out.println(Arrays.toString(flags));
+System.out.println(Arrays.toString(names));
+}
+}
+
+📋 Ожидаемый вывод:
+
+[0, 0, 0, 0]
+[false, false, false]
+[null, null]
+
+3. Перебор массива
+
+Классический цикл удобен, когда нужен индекс. Enhanced for удобен, когда нужно только значение элемента.
+
+public class Main {
+public static void main(String[] args) {
+int[] numbers = {3, 7, 2, 9};
+
+for (int i = 0; i < numbers.length; i++) {
+System.out.println("index=" + i + ", value=" + numbers[i]);
+}
+
+int sum = 0;
+for (int value : numbers) {
+sum += value;
+}
+
+System.out.println("sum=" + sum);
+}
+}
+
+✅ Чек-лист самопроверки
+
+- Я понимаю, что длина массива не меняется после создания
+
+- Я умею получать длину массива через array.length
+
+- Я помню, что первый индекс равен 0
+
+- Я выбираю enhanced for, когда индекс не нужен
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

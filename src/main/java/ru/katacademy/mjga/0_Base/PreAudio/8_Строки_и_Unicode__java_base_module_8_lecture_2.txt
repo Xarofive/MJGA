@@ -1,0 +1,105 @@
+Итерация по строкам в Java: char и code point
+
+📌 TL;DR — Суть за 30 секунд
+
+- Цикл по charAt(i) идёт по UTF-16 code units
+
+- Цикл по codePoints() идёт по Unicode code points
+
+- Эмодзи может занимать два char, но один code point
+
+- Для позиции в code points используйте отдельный счётчик
+
+- Для поиска и обрезки Unicode-текста чаще безопаснее работать с code points
+
+1. Итерация через charAt
+
+charAt полезен для ASCII и простого текста, но он не всегда равен одному Unicode-символу.
+
+public class Main {
+public static void main(String[] args) {
+String text = "Hi🚀!";
+
+for (int i = 0; i < text.length(); i++) {
+System.out.println("char index=" + i + ", value=" + text.charAt(i));
+}
+}
+}
+
+2. Итерация через codePoints
+
+codePoints() возвращает поток целых чисел, где каждое число — Unicode code point. Чтобы вывести его как строку, используйте Character.toChars.
+
+public class Main {
+public static void main(String[] args) {
+String text = "Hi🚀!";
+int symbolIndex = 0;
+
+for (int codePoint : text.codePoints().toArray()) {
+String symbol = new String(Character.toChars(codePoint));
+System.out.println("symbol index=" + symbolIndex + ", value=" + symbol);
+symbolIndex++;
+}
+}
+}
+
+3. Поиск позиции символа
+
+Если нужна позиция именно в Unicode code points, считайте её отдельно. Индекс в String и номер символа могут отличаться.
+
+public class Main {
+static int findCodePointPosition(String s, int target) {
+int position = 0;
+for (int i = 0; i < s.length(); ) {
+int current = s.codePointAt(i);
+if (current == target) {
+return position;
+}
+i += Character.charCount(current);
+position++;
+}
+return -1;
+}
+}
+
+4. Последние N символов
+
+Для обрезки с конца по code points удобно сначала посчитать общее количество code points, затем перевести позицию в индекс UTF-16.
+
+public class Main {
+static String lastCodePoints(String s, int n) {
+if (n <= 0) {
+return "";
+}
+
+int total = s.codePointCount(0, s.length());
+if (n >= total) {
+return s;
+}
+
+int begin = s.offsetByCodePoints(0, total - n);
+return s.substring(begin);
+}
+}
+
+Важные предостережения
+
+Ошибка 1: считать индекс charAt номером Unicode-символа.
+
+Ошибка 2: увеличивать индекс всегда на 1 при ручном проходе по code points. Нужно прибавлять Character.charCount(codePoint).
+
+Ошибка 3: забывать, что substring принимает UTF-16 индексы.
+
+✅ Чек-лист самопроверки
+
+- Я понимаю разницу между char и code point
+
+- Я умею пройти строку через codePoints()
+
+- Я использую Character.charCount при ручном проходе
+
+- Я умею получить последние N code points строки
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

@@ -1,0 +1,119 @@
+Практические паттерны HashMap и ArrayList
+
+Собираем приёмы, которые нужны в задачах модуля: множество, частотный анализ, сортировка ключей и вложенные карты.
+
+Что будет использоваться в практике
+
+- HashMap<Integer, Boolean> как множество: быстро проверить, встречалось ли число.
+
+- HashMap<String, Integer> как счётчик частот.
+
+- ArrayList<String> для сохранения порядка или сортировки ключей.
+
+- HashMap<String, HashMap<String, Integer>> для группировки товаров по категориям.
+
+1. HashMap как множество
+
+В этом модуле множество можно представить как HashMap<Integer, Boolean>. Ключ — сам элемент, значение — отметка true. Нам важно быстро проверить, встречался ли элемент раньше.
+
+HashMap<Integer, Boolean> seen = new HashMap<>();
+ArrayList<Integer> unique = new ArrayList<>();
+
+for (int value : values) {
+if (!seen.containsKey(value)) {
+seen.put(value, true);
+unique.add(value);
+}
+}
+
+Такой паттерн решает задачу удаления дубликатов с сохранением порядка: HashMap быстро проверяет повтор, ArrayList хранит результат в порядке первого появления.
+
+2. Частотный анализ
+
+Если нужно посчитать, сколько раз встретилась каждая строка, используйте HashMap<String, Integer>.
+
+HashMap<String, Integer> counts = new HashMap<>();
+
+for (String category : categories) {
+int oldCount = counts.getOrDefault(category, 0);
+counts.put(category, oldCount + 1);
+}
+
+getOrDefault(category, 0) означает: если ключ есть, возьми его значение; если ключа нет, используй 0.
+
+3. Сортированный вывод HashMap
+
+У HashMap нет гарантированного порядка обхода. Для предсказуемого вывода соберите ключи в ArrayList и отсортируйте их.
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
+ArrayList<String> keys = new ArrayList<>(counts.keySet());
+Collections.sort(keys);
+
+for (String key : keys) {
+System.out.println(key + " " + counts.get(key));
+}
+
+keySet() возвращает набор ключей. Конструктор new ArrayList<>(counts.keySet()) копирует эти ключи в список, а Collections.sort(keys) сортирует список на месте.
+
+4. Вложенный HashMap
+
+Для данных с двумя уровнями удобно использовать HashMap внутри HashMap. Например: категория → товар → стоимость.
+
+HashMap<String, HashMap<String, Integer>> inventory = new HashMap<>();
+
+String category = "groceries";
+String item = "milk";
+int totalCost = 100;
+
+if (!inventory.containsKey(category)) {
+inventory.put(category, new HashMap<>());
+}
+
+HashMap<String, Integer> items = inventory.get(category);
+int oldCost = items.getOrDefault(item, 0);
+items.put(item, oldCost + totalCost);
+
+Важная деталь
+
+Перед записью во внутренний HashMap его нужно создать. Если категории ещё нет и вы сразу напишете inventory.get(category).put(item, cost), программа упадёт с NullPointerException.
+
+5. Командный ввод
+
+В задачах с командами удобно читать строку целиком через BufferedReader, разбивать её на части и обрабатывать первую часть как команду.
+
+String line = reader.readLine();
+String[] parts = line.split("\\s+");
+
+String command = parts[0];
+
+switch (command) {
+case "PUT":
+String name = parts[1];
+String phone = parts[2];
+phonebook.put(name, phone);
+break;
+case "COUNT":
+writer.println(phonebook.size());
+break;
+}
+
+split("\\s+") разбивает строку по одному или нескольким пробельным символам. BufferedReader и PrintWriter уже встречались в модуле про ввод; здесь они нужны для быстрой обработки большого количества команд.
+
+Чек-лист перед практикой
+
+- Я понимаю, как использовать HashMap<Integer, Boolean> для проверки повторов
+
+- Я могу увеличить счётчик через getOrDefault
+
+- Я знаю, что HashMap не гарантирует порядок обхода
+
+- Я могу отсортировать ключи через ArrayList и Collections.sort
+
+- Я понимаю, зачем создавать внутренний HashMap перед записью
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

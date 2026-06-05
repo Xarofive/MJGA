@@ -1,0 +1,145 @@
+📖 Ввод данных в Java: Scanner и BufferedReader
+
+📌 Цель лекции
+
+Научиться читать данные из стандартного ввода и текстового потока, выбирать подходящий инструмент и аккуратно преобразовывать строки в числа.
+
+💼 Контекст и мотивация
+
+Большинство программ получают данные не из заранее записанных переменных, а извне: из консоли, файла, сетевого ответа или тестового источника. В Java для первых задач удобно использовать Scanner, а для построчного чтения и больших текстов часто берут BufferedReader.
+
+В этом модуле мы рассматриваем ввод как поток строк: читаем текст, очищаем его, преобразуем в нужный тип и отдельно обрабатываем ошибки.
+
+🌊 Поток данных
+
+System.in — стандартный поток ввода. Обычно это клавиатура в консоли, но в тестах вместо неё может быть строка или файл.
+
+Важная идея: программе не важно, откуда пришли байты. Она получает поток, читает из него текст и дальше работает с обычными строками.
+
+1. Scanner: быстрый старт
+
+Scanner удобен для учебных задач и небольших консольных программ. Он умеет читать токены, целые строки и сразу преобразовывать числа.
+
+import java.util.Scanner;
+
+public class Main {
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+
+String name = scanner.nextLine();
+int age = scanner.nextInt();
+
+System.out.println("Name: " + name);
+System.out.println("Age: " + age);
+}
+}
+
+📝 Важная особенность Scanner
+
+nextInt() читает только число и оставляет перевод строки во входе. Если сразу после него вызвать nextLine(), вы можете получить пустую строку.
+
+Надёжный учебный подход: читать строку через nextLine(), затем преобразовывать её через Integer.parseInt(line.trim()).
+
+Scanner scanner = new Scanner(System.in);
+
+String line = scanner.nextLine();
+int value = Integer.parseInt(line.trim());
+
+2. BufferedReader: построчное чтение
+
+BufferedReader читает текст построчно. Он хорошо подходит, когда нужно обработать несколько строк, пропустить пустые строки или протестировать функцию на строковом источнике.
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+public static void main(String[] args) throws IOException {
+BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+String firstLine = reader.readLine();
+String secondLine = reader.readLine();
+
+System.out.println(firstLine);
+System.out.println(secondLine);
+}
+}
+
+Коротко про throws IOException: чтение может завершиться ошибкой ввода-вывода. В этой лекции достаточно знать, что throws IOException в заголовке метода передаёт такую ошибку вызывающему коду. Подробно исключения разберём в следующей лекции.
+
+3. Преобразование строк
+
+Ввод почти всегда приходит как строка. Для целых чисел используйте Integer.parseInt:
+
+String raw = " 42 ";
+String cleaned = raw.trim();
+int number = Integer.parseInt(cleaned);
+
+Если строка не является корректным целым числом, Integer.parseInt выбросит NumberFormatException. Это обычная ситуация для пользовательского ввода, поэтому в реальных программах её нужно обрабатывать.
+
+4. Тестируемый ввод
+
+Функции удобнее тестировать, если они принимают BufferedReader, а не создают его внутри. В тесте можно передать StringReader вместо консоли.
+
+StringReader — это источник символов из обычной строки в памяти. Он ведёт себя как маленький текстовый поток: \n внутри строки становится переводом строки, а BufferedReader читает такой текст через привычный readLine().
+
+import java.io.BufferedReader;
+import java.io.StringReader;
+
+BufferedReader reader = new BufferedReader(new StringReader("10\n20\n"));
+
+String first = reader.readLine(); // "10"
+String second = reader.readLine(); // "20"
+
+⚠️ Частые ошибки
+
+Ошибка 1: смешивать nextInt() и nextLine() без понимания оставшегося перевода строки.
+
+Ошибка 2: парсить число без trim(), хотя во вводе могут быть пробелы.
+
+Ошибка 3: считать, что ввод всегда корректный. Любое преобразование строки в число может завершиться ошибкой.
+
+Ошибка 4: печатать результат внутри функции, которую нужно только вычислить и вернуть.
+
+📚 Шпаргалка
+
+| Задача | Инструмент
+
+| Быстро прочитать токен или число | Scanner
+
+| Читать текст построчно | BufferedReader.readLine()
+
+| Прочитать из консоли через BufferedReader | new InputStreamReader(System.in)
+
+| Протестировать чтение на строке | new StringReader("...")
+
+| Преобразовать строку в int | Integer.parseInt(text.trim())
+
+🏋️ Практика внутри лекции
+
+Мини-задача: дан BufferedReader, который содержит две строки с числами. Прочитайте строки, преобразуйте их в int и выведите сумму.
+
+BufferedReader reader = new BufferedReader(new StringReader("7\n5\n"));
+
+int a = Integer.parseInt(reader.readLine().trim());
+int b = Integer.parseInt(reader.readLine().trim());
+
+System.out.println(a + b); // 12
+
+✅ Чек-лист самопроверки
+
+- Я понимаю, что System.in — стандартный поток ввода
+
+- Я умею читать строку через Scanner.nextLine()
+
+- Я знаю, почему nextInt() и nextLine() нужно смешивать осторожно
+
+- Я умею читать строки через BufferedReader.readLine()
+
+- Я преобразую строку в число через Integer.parseInt(text.trim())
+
+- Я понимаю, что некорректный ввод приводит к исключению
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

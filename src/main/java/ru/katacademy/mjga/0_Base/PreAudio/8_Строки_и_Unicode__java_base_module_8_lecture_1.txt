@@ -1,0 +1,118 @@
+Строки и текст в Java: UTF-16, байты и Unicode
+
+📌 TL;DR — Суть за 30 секунд
+
+- String в Java неизменяемая: любое изменение создаёт новую строку
+
+- length() возвращает количество UTF-16 code units, а не всегда количество видимых символов
+
+- Для размера в байтах используйте s.getBytes(StandardCharsets.UTF_8).length
+
+- Для Unicode code points используйте codePointCount, codePoints(), offsetByCodePoints
+
+- Не режьте строки с эмодзи обычными индексами, если вам нужны именно символы
+
+📚 Предпосылки
+
+Нужно понимать переменные, методы, циклы, массивы и базовые типы. В этой теме важно аккуратно различать байты, индексы строки и Unicode code points.
+
+1. String: неизменяемость и базовые операции
+
+Строка в Java — объект типа String. После создания содержимое строки нельзя изменить. Методы вроде toUpperCase(), trim() и конкатенация возвращают новую строку.
+
+public class Main {
+public static void main(String[] args) {
+String text = "Java";
+String changed = text + "!";
+
+System.out.println(text);
+System.out.println(changed);
+System.out.println(text == changed);
+}
+}
+
+2. Байты vs символы
+
+Java хранит строки как последовательность UTF-16 code units. Метод length() показывает именно их количество. Размер строки в UTF-8 байтах нужно считать явно.
+
+import java.nio.charset.StandardCharsets;
+
+public class Main {
+public static void main(String[] args) {
+String ascii = "Hello";
+String cyrillic = "Привет";
+String emoji = "Java🚀";
+
+System.out.println(ascii.length());
+System.out.println(ascii.getBytes(StandardCharsets.UTF_8).length);
+
+System.out.println(cyrillic.length());
+System.out.println(cyrillic.getBytes(StandardCharsets.UTF_8).length);
+
+System.out.println(emoji.length());
+System.out.println(emoji.codePointCount(0, emoji.length()));
+System.out.println(emoji.getBytes(StandardCharsets.UTF_8).length);
+}
+}
+
+🔎 Почему у эмодзи длина 4?
+
+Строка "Java🚀" содержит 5 Unicode code points: J, a, v, a, 🚀. Но 🚀 занимает две UTF-16 ячейки, поэтому length() вернёт 6. Для количества Unicode code points используйте codePointCount.
+
+3. Code point: безопасная единица Unicode
+
+Если нужно пройти по строке с учётом эмодзи и символов вне базовой плоскости Unicode, используйте codePoints() или методы codePointAt и offsetByCodePoints.
+
+public class Main {
+public static void main(String[] args) {
+String text = "Hi🚀";
+
+int[] points = text.codePoints().toArray();
+for (int point : points) {
+System.out.println(new String(Character.toChars(point)) + " U+" + Integer.toHexString(point).toUpperCase());
+}
+}
+}
+
+4. Безопасная подстрока по code points
+
+Обычный substring принимает индексы UTF-16. Если параметры заданы в символах/code points, сначала переведите их в индексы UTF-16 через offsetByCodePoints.
+
+Math.min(start + length, total) выбирает меньшее из двух чисел. Здесь это защита от выхода за конец строки: если запрошенная длина слишком большая, метод остановится на последнем доступном символе.
+
+public class Main {
+static String substringByCodePoints(String s, int start, int length) {
+int total = s.codePointCount(0, s.length());
+int endPoint = Math.min(start + length, total);
+
+int beginIndex = s.offsetByCodePoints(0, start);
+int endIndex = s.offsetByCodePoints(0, endPoint);
+return s.substring(beginIndex, endIndex);
+}
+
+public static void main(String[] args) {
+System.out.println(substringByCodePoints("Hello😊世界", 5, 3));
+}
+}
+
+Типичные ошибки
+
+Ошибка 1: считать length() количеством всех видимых символов. Для эмодзи это может быть неверно.
+
+Ошибка 2: брать substring по произвольным индексам внутри surrogate pair.
+
+Ошибка 3: считать размер строки в байтах через length(). Для байтов нужен getBytes(StandardCharsets.UTF_8).
+
+✅ Чек-лист самопроверки
+
+- Я понимаю, что String неизменяемый
+
+- Я отличаю length() от размера в UTF-8 байтах
+
+- Я умею получить количество code points
+
+- Я не режу Unicode-текст произвольными индексами
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.
