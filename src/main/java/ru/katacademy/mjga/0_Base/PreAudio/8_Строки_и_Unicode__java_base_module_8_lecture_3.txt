@@ -1,0 +1,101 @@
+Практические приёмы работы со строками в Java
+
+📌 TL;DR — Суть за 30 секунд
+
+- trim() убирает пробелы по краям, split("\\s+") разбивает по группам whitespace
+
+- equalsIgnoreCase сравнивает строки без учёта регистра
+
+- toLowerCase() + contains() дают простой поиск без учёта регистра
+
+- StringBuilder нужен для эффективной сборки строки в цикле
+
+- Integer.toString и Integer.parseInt преобразуют числа и строки
+
+- Character.isLetter, isDigit, isWhitespace классифицируют символы
+
+1. Нормализация пробелов
+
+Чтобы заменить любые группы пробельных символов одним пробелом, можно обрезать края, разбить строку регулярным выражением и собрать обратно.
+
+public class Main {
+static String normalizeSpaces(String s) {
+String trimmed = s.trim();
+if (trimmed.isEmpty()) {
+return "";
+}
+String[] words = trimmed.split("\\s+");
+return String.join(" ", words);
+}
+}
+
+2. Сравнение и поиск без учёта регистра
+
+public class Main {
+static boolean containsIgnoreCase(String text, String part) {
+return text.toLowerCase().contains(part.toLowerCase());
+}
+}
+
+3. Эффективная конкатенация: StringBuilder
+
+Строки неизменяемы, поэтому конкатенация через += в большом цикле создаёт много промежуточных объектов. Для сборки результата используйте StringBuilder.
+
+public class Main {
+static String joinNumbers(int[] nums) {
+StringBuilder builder = new StringBuilder();
+for (int i = 0; i < nums.length; i++) {
+if (i > 0) {
+builder.append(",");
+}
+builder.append(nums[i]);
+}
+return builder.toString();
+}
+}
+
+4. Преобразование чисел
+
+public class Main {
+public static void main(String[] args) {
+String text = Integer.toString(42);
+int value = Integer.parseInt("42");
+
+System.out.println(text);
+System.out.println(value);
+}
+}
+
+5. Классификация символов
+
+public class Main {
+public static void main(String[] args) {
+String text = "A1 Привет!";
+
+for (int cp : text.codePoints().toArray()) {
+System.out.println(Character.isLetter(cp) + " " + Character.isDigit(cp) + " " + Character.isWhitespace(cp));
+}
+}
+}
+
+Важные предостережения
+
+Ошибка 1: использовать += в большом цикле вместо StringBuilder.
+
+Ошибка 2: забывать обработать пустую строку при нормализации пробелов.
+
+Ошибка 3: использовать contains без нормализации регистра, если поиск должен быть регистронезависимым.
+
+✅ Чек-лист самопроверки
+
+- Я умею нормализовать пробелы через trim, split, String.join
+
+- Я использую StringBuilder для сборки строки в цикле
+
+- Я умею искать подстроку без учёта регистра
+
+- Я знаю базовые методы класса Character
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

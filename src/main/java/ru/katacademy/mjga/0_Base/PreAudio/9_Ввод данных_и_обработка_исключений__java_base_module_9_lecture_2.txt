@@ -1,0 +1,151 @@
+⚡ Исключения в Java: try, catch, throw
+
+📌 Цель лекции
+
+Понять, как Java сообщает об ошибках через исключения, как их перехватывать, когда выбрасывать свои ошибки и чем отличаются проверяемые и непроверяемые исключения.
+
+💼 Контекст и мотивация
+
+Ввод пользователя, чтение файлов и преобразование строк в числа часто завершаются неудачей. Вместо специальных кодов возврата Java использует исключения: объект ошибки прерывает обычный ход выполнения и передаётся в ближайший подходящий catch.
+
+Хороший код не скрывает ошибку, а сообщает о ней понятно: что пошло не так, на каком значении и что должен сделать вызывающий код.
+
+1. Исключение — сигнал о проблеме
+
+Если Integer.parseInt не может преобразовать строку в число, он выбрасывает NumberFormatException:
+
+int value = Integer.parseInt("abc"); // NumberFormatException
+
+Чтобы программа не завершилась аварийно, опасный участок можно обернуть в try/catch.
+
+try {
+int value = Integer.parseInt("abc");
+System.out.println(value);
+} catch (NumberFormatException e) {
+System.out.println("Некорректное число");
+}
+
+🎯 Базовое правило
+
+Перехватывайте исключение только там, где вы реально можете принять решение: показать сообщение, заменить значение, повторить ввод или вернуть более понятную ошибку выше.
+
+2. throw: выбросить свою ошибку
+
+Если функция получила некорректный аргумент, она может выбросить IllegalArgumentException.
+
+static int parsePositive(String text) {
+int value = Integer.parseInt(text.trim());
+
+if (value <= 0) {
+throw new IllegalArgumentException("value must be positive: " + value);
+}
+
+return value;
+}
+
+throw создаёт исключительную ситуацию. После него обычное выполнение метода прекращается.
+
+3. Непроверяемые исключения
+
+Исключения вроде IllegalArgumentException, NumberFormatException, ArithmeticException и NullPointerException относятся к непроверяемым. Компилятор не требует писать throws или try/catch, но ошибка всё равно может произойти во время выполнения.
+
+| Исключение | Когда возникает
+
+| NumberFormatException | Строка не является числом
+
+| IllegalArgumentException | Методу передали недопустимый аргумент
+
+| ArithmeticException | Например, целочисленное деление на ноль
+
+| NullPointerException | Обращение к методу или полю через null
+
+4. Проверяемые исключения
+
+IOException — проверяемое исключение. Компилятор требует явно показать, что метод может столкнуться с ошибкой ввода-вывода.
+
+import java.io.BufferedReader;
+import java.io.IOException;
+
+static String readRequiredLine(BufferedReader reader) throws IOException {
+String line = reader.readLine();
+
+if (line == null) {
+throw new IllegalArgumentException("line is required");
+}
+
+return line;
+}
+
+throws IOException в сигнатуре означает: метод сам не обрабатывает ошибку чтения, а передаёт её вызывающему коду.
+
+5. try-with-resources
+
+Если объект нужно закрывать после работы, используйте try-with-resources. Он автоматически вызовет close().
+
+try (Scanner scanner = new Scanner(System.in)) {
+String line = scanner.nextLine();
+System.out.println(line);
+}
+
+📝 В учебных задачах
+
+Если метод получает BufferedReader параметром, не закрывайте его внутри метода. Ресурс закрывает тот код, который его создал.
+
+📚 Шпаргалка
+
+- try — участок кода, где может возникнуть исключение
+
+- catch — обработчик конкретного типа исключения
+
+- throw — выбросить исключение вручную
+
+- throws — указать, что метод может передать исключение наружу
+
+- IllegalArgumentException — некорректный аргумент метода
+
+- IOException — ошибка ввода-вывода, которую компилятор требует учитывать
+
+🏋️ Практика внутри лекции
+
+Мини-задача: напишите метод, который принимает строку и возвращает число. Если строка пустая после trim(), выбросьте IllegalArgumentException с текстом "empty input".
+
+static int parseRequiredInt(String text) {
+String cleaned = text.trim();
+
+if (cleaned.isEmpty()) {
+throw new IllegalArgumentException("empty input");
+}
+
+return Integer.parseInt(cleaned);
+}
+
+🎲 Квиз: Проверьте понимание
+
+Что произойдёт?
+
+try {
+int x = 10 / 0;
+System.out.println("ok");
+} catch (ArithmeticException e) {
+System.out.println("division error");
+}
+
+Ответ: будет напечатано division error. Строка System.out.println("ok") не выполнится.
+
+✅ Чек-лист самопроверки
+
+- Я понимаю, что исключение прерывает обычный ход метода
+
+- Я умею оборачивать опасный код в try/catch
+
+- Я знаю, когда использовать throw new IllegalArgumentException(...)
+
+- Я отличаю throw от throws
+
+- Я понимаю, почему IOException нужно указать или обработать
+
+- Я не скрываю ошибку пустым catch
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.

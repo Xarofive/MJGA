@@ -1,0 +1,136 @@
+HashMap: пары ключ-значение
+
+Быстрый поиск, обновление, удаление и подсчёт по ключу в Java.
+
+TL;DR
+
+- HashMap<K, V> хранит пары: ключ типа K и значение типа V.
+
+- По ключу можно быстро получить значение: обычно это близко к O(1).
+
+- Создание: HashMap<String, Integer> counts = new HashMap<>();
+
+- Операции: put, get, containsKey, remove, size.
+
+- Порядок обхода HashMap не гарантирован.
+
+- Если нужен алфавитный вывод, соберите ключи в ArrayList и отсортируйте через Collections.sort.
+
+Что такое HashMap
+
+Представьте телефонную книгу: по имени нужно быстро найти номер. Или счётчик категорий: по названию категории нужно быстро узнать количество. Для таких задач в Java используется HashMap.
+
+import java.util.HashMap;
+
+HashMap<String, String> phonebook = new HashMap<>();
+
+phonebook.put("Alice", "123456");
+phonebook.put("Bob", "789012");
+
+String phone = phonebook.get("Alice"); // 123456
+
+Почему не ArrayList? В списке для поиска по имени пришлось бы перебирать элементы один за другим. HashMap хранит данные так, чтобы быстро находить значение по ключу.
+
+Ключи и значения
+
+В записи HashMap<String, Integer> первый тип — это тип ключа, второй тип — тип значения.
+
+HashMap<String, Integer> scores = new HashMap<>();
+// ключ: String, значение: Integer
+
+scores.put("Alice", 95);
+scores.put("Bob", 87);
+
+Про ключи в Java
+
+В этом модуле используем простые ключи: String, Integer, Character. Для собственных классов нужно правильно настраивать equals и hashCode, но классы будут позже, поэтому сейчас не углубляемся.
+
+Создание и инициализация
+
+Главное правило: перед записью в HashMap объект должен быть создан через new HashMap<>().
+
+// Правильно
+HashMap<String, Integer> counts = new HashMap<>();
+counts.put("apple", 1);
+
+// Неправильно
+HashMap<String, Integer> broken = null;
+// broken.put("apple", 1); // NullPointerException
+
+Если переменная ссылается на null, а вы пытаетесь вызвать у неё метод, Java выбросит NullPointerException. Поэтому перед работой с коллекцией её нужно создать.
+
+Основные операции
+
+| Операция
+| Java
+| Смысл
+
+| Записать | map.put(key, value) | Добавить или заменить значение
+
+| Прочитать | map.get(key) | Получить значение или null
+
+| Проверить ключ | map.containsKey(key) | Понять, есть ли ключ
+
+| Удалить | map.remove(key) | Удалить пару ключ-значение
+
+| Размер | map.size() | Количество пар
+
+HashMap<String, String> phonebook = new HashMap<>();
+
+phonebook.put("Alice", "123456");
+phonebook.put("Alice", "999999"); // старое значение заменится
+
+if (phonebook.containsKey("Alice")) {
+System.out.println(phonebook.get("Alice"));
+}
+
+phonebook.remove("Alice");
+System.out.println(phonebook.size());
+
+Проверка наличия ключа
+
+get возвращает null, если ключа нет. Но лучше явно использовать containsKey, когда от наличия ключа зависит логика вывода.
+
+if (phonebook.containsKey(name)) {
+System.out.println(phonebook.get(name));
+} else {
+System.out.println("NOT FOUND");
+}
+
+Это особенно важно, если null теоретически может быть допустимым значением. В учебных задачах мы обычно не кладём null в коллекции, но привычка проверять ключ явно полезна.
+
+Подсчёт частоты
+
+Для счётчиков удобно использовать getOrDefault. Метод возвращает значение по ключу, а если ключа нет — указанное значение по умолчанию.
+
+HashMap<String, Integer> counts = new HashMap<>();
+
+String category = "apple";
+int oldCount = counts.getOrDefault(category, 0);
+counts.put(category, oldCount + 1);
+
+Порядок обхода не гарантирован
+
+HashMap не хранит элементы в порядке добавления и не гарантирует алфавитный порядок. Поэтому нельзя писать решение, которое зависит от порядка обхода keySet().
+
+for (String key : counts.keySet()) {
+System.out.println(key + " " + counts.get(key));
+}
+
+Такой код подходит только там, где порядок вывода не важен. Если порядок важен, используйте паттерн из следующей лекции: собрать ключи в ArrayList, отсортировать, пройти по отсортированным ключам.
+
+Чек-лист самопроверки
+
+- Я понимаю запись HashMap<K, V>
+
+- Я могу создать HashMap через new HashMap<>()
+
+- Я использую put, get, containsKey, remove и size
+
+- Я понимаю, почему порядок обхода HashMap нельзя считать стабильным
+
+- Я могу использовать getOrDefault для счётчиков
+
+🚀 Навык разблокирован
+
+После этой лекции вы сможете применять материал темы в Java-задачах.
