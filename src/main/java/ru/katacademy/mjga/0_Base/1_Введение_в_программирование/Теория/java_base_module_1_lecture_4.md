@@ -17,12 +17,6 @@
 </ul>
 </div>
 
-<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
-<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
-
-<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по базовой структуре программы на Java.</p>
-</div>
-
 <div style="background: #e0f2f1; border: 1px solid #80cbc4; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #00695c; margin-top: 0;">Содержание</h4>
 

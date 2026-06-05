@@ -30,7 +30,7 @@
 
 <p>Для лучшего понимания основ программирования и Java прослушайте аудиоподкаст:</p>
 
-<p style="margin: 20px 0;"><a href="#" style="display: inline-block; background: #6a1b9a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать введение в Java и программирование</a></p>
+<p style="margin: 15px 0;"><a href="https://drive.google.com/file/d/1A-9YdjprGx8PoVQkkKxPn5T-Ojwr0psG/view?usp=drive_link" style="display: inline-block; background: #6a1b9a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать введение в программирование</a></p>
 
 <p style="font-size: 14px; color: #666;"><em>Откроется в новой вкладке. Рекомендуется прослушать перед изучением материала для общего понимания или после — для закрепления.</em></p>
 </div>

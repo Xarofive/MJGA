@@ -16,13 +16,6 @@
 </ul>
 </div>
 
-<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
-<h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
-<p><strong>Аудио по типам данных в Java будет добавлено позже.</strong></p>
-<p style="margin: 15px 0;"><span style="display: inline-block; background: #1565c0; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">🎧 Аудио будет добавлено</span></p>
-<p style="font-size: 14px; color: #666; margin-top: 10px;"><em>Пока изучайте материал по тексту и запускайте примеры в IntelliJ IDEA.</em></p>
-</div>
-
 <h2 style="color: #34495e; margin-top: 30px;">Содержание</h2>
 <ul>
 	<li><a href="#why-types">Зачем нужны типы данных?</a></li>

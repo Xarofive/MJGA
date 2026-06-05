@@ -4,11 +4,6 @@
 
 <p style="text-align: center; color: #666; margin-bottom: 30px;">Быстрый поиск, обновление, удаление и подсчёт по ключу в Java.</p>
 
-<div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
-<h4 style="color: #1565c0; margin-top: 0;">Аудиообъяснение темы</h4>
-<p style="margin-bottom: 0;"><strong>Заглушка для аудио:</strong> сюда позже будет добавлена ссылка на подкаст по <code>HashMap</code> в Java.</p>
-</div>
-
 <div style="background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h3 style="color: #2e7d32; margin-top: 0;">TL;DR</h3>
 <ul>

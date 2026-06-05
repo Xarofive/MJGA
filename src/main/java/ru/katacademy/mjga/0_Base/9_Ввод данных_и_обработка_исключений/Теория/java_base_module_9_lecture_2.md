@@ -2,11 +2,6 @@
 <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow-x: auto;">
 <h1 style="text-align: center; color: #2c3e50; margin-top: 0;">⚡ Исключения в Java: try, catch, throw</h1>
 
-<div style="background: #f3e5f5; border: 1px solid #ce93d8; border-radius: 8px; padding: 14px; margin: 20px 0;">
-<h4 style="color: #6a1b9a; margin-top: 0;">🎧 Аудиоподкаст</h4>
-<p style="margin: 0;">Заглушка для аудио: сюда позже будет добавлена ссылка на дополнительное объяснение темы про исключения в Java.</p>
-</div>
-
 <div style="background: #e8f5e9; border: 2px solid #4caf50; border-radius: 8px; padding: 14px; margin: 20px 0;">
 <h3 style="color: #2e7d32; margin-top: 0;">📌 Цель лекции</h3>
 <p style="margin: 0;">Понять, как Java сообщает об ошибках через исключения, как их перехватывать, когда выбрасывать свои ошибки и чем отличаются проверяемые и непроверяемые исключения.</p>
