@@ -18,9 +18,9 @@
 
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
-<p><strong>Аудио по условным операторам в Java будет добавлено позже.</strong></p>
-<p style="margin: 15px 0;"><span style="display: inline-block; background: #1565c0; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;">🎧 Аудио будет добавлено</span></p>
-<p style="font-size: 14px; color: #666; margin-top: 10px;"><em>Пока изучайте материал по тексту и запускайте примеры в IntelliJ IDEA.</em></p>
+<p>Для лучшего понимания условных операторов в Java прослушайте аудиоподкаст:</p>
+<p style="margin: 15px 0;"><a href="https://drive.google.com/file/d/1qETixnQq18nppCnQMTaZV4R3RPirDfsw/view?usp=sharing" style="display: inline-block; background: #1565c0; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать об условных операторах</a></p>
+<p style="font-size: 14px; color: #666; margin-top: 10px;"><em>Откроется в новой вкладке. Рекомендуется прослушать перед изучением материала для общего понимания или после — для закрепления.</em></p>
 </div>
 
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">

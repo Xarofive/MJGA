@@ -18,7 +18,9 @@
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
 
-<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по базовой модели и классическому синтаксису switch.</p>
+<p>Для лучшего понимания switch в Java прослушайте аудиоподкаст:</p>
+<p style="margin: 15px 0;"><a href="https://drive.google.com/file/d/1aNj3v7gL4ZP8bxzx5GTdn8FvdCy_dERS/view?usp=sharing" style="display: inline-block; background: #1565c0; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать о switch</a></p>
+<p style="font-size: 14px; color: #666; margin-top: 10px;"><em>Откроется в новой вкладке. Рекомендуется прослушать перед изучением материала для общего понимания или после — для закрепления.</em></p>
 </div>
 
 <h2 style="color: #34495e; margin-top: 30px;">1. Зачем нужен switch</h2>

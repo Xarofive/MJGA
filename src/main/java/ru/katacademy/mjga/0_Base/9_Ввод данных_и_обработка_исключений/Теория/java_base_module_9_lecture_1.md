@@ -10,7 +10,9 @@
 <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 15px; margin: 20px 0;">
 <h4 style="color: #1565c0; margin-top: 0;">🎧 Аудиообъяснение темы</h4>
 
-<p><strong>Заглушка для аудио.</strong> Здесь позже будет ссылка на подкаст по вводу данных и обработке строкового ввода в Java.</p>
+<p>Для лучшего понимания ввода данных и обработки исключений в Java прослушайте аудиоподкаст:</p>
+<p style="margin: 15px 0;"><a href="https://drive.google.com/file/d/1m38zHBBA8PV-GXi2jLuvfp-o-0OtqmGb/view?usp=sharing" style="display: inline-block; background: #1565c0; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;" target="_blank">🎧 Прослушать о вводе данных и исключениях</a></p>
+<p style="font-size: 14px; color: #666; margin-top: 10px;"><em>Откроется в новой вкладке. Рекомендуется прослушать перед изучением материала для общего понимания или после — для закрепления.</em></p>
 </div>
 
 <div style="background: linear-gradient(to right, #ffeaa7, #fdcb6e); border-radius: 8px; padding: 16px; margin: 20px 0;">
