@@ -1,0 +1,225 @@
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<div style="max-width: 900px; margin: 0px auto; padding: 20px; background: rgb(31, 31, 31);">
+<div style="background: rgb(28, 28, 33); padding: 30px; border-radius: 12px; box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 10px; overflow-x: auto;">
+<h1 style="color: rgb(173, 191, 210); border-bottom: 3px solid rgb(46, 135, 173); padding-bottom: 10px;">Задача &laquo;Форматирование чисел&raquo;</h1>
+
+<div style="background: rgb(41, 41, 41); border: 2px solid rgb(76, 174, 79); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<h3 style="color: rgb(162, 221, 165); margin-top: 0px;">📌 TL;DR</h3>
+
+<ul>
+	<li><strong>Суть</strong>: подключить библиотеку <code>go-humanize</code> конкретной версии, написать две функции и тесты для них.</li>
+	<li><strong>Ожидаемый вывод</strong>: содержит <code>1.0 kB</code>, <code>1.1 GB</code>, <code>1,000,000</code>.</li>
+	<li><strong>Новые навыки</strong>: пиннинг версии (<code>go get @version</code>), написание юнит-тестов.</li>
+</ul>
+</div>
+
+<div style="background: rgb(38, 38, 38); border: 1px solid rgb(32, 96, 105); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<h3 style="color: rgb(154, 206, 228); margin-top: 0px;">Что нужно знать перед решением</h3>
+
+<ul style="margin-bottom: 0;">
+	<li><strong>Практика &laquo;Подключение внешней библиотеки&raquo;:</strong> <code>go mod init</code>, <code>go get</code>, подключение внешней библиотеки.</li>
+	<li><strong>Лекция 1.2:</strong> пиннинг версий (<code>go get @version</code>), <code>go.sum</code>.</li>
+	<li><strong>Лекция 1.1:</strong> экспортируемые функции (имя с заглавной буквы).</li>
+	<li><strong>Лекция 1.3:</strong> ветка <code>task/&lt;имя-задачи&gt;</code>, <code>git switch -c</code>, <code>git push origin</code>.</li>
+</ul>
+</div>
+
+<h2 style="color: rgb(173, 191, 210); margin-top: 30px;">Содержание</h2>
+
+<ul>
+	<li><a href="#goal">Цель</a></li>
+	<li><a href="#requirements">Требования (строго по автотестам)</a></li>
+	<li><a href="#steps">Шаги выполнения</a></li>
+	<li><a href="#example">Пример вывода</a></li>
+	<li><a href="#testing">Тестирование</a></li>
+	<li><a href="#compat">Совместимость с Go</a></li>
+	<li><a href="#submission">Порядок сдачи</a></li>
+	<li><a href="#mistakes">Частые ошибки</a></li>
+	<li><a href="#checklist">Чек-лист</a></li>
+</ul>
+
+<h2 id="goal" style="color: rgb(173, 191, 210); margin-top: 30px;">Цель</h2>
+
+<div style="background: rgb(41, 41, 41); border: 1px solid rgb(34, 89, 135); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<p>Закрепить работу с внешними зависимостями: установить библиотеку конкретной версии, использовать её API, написать юнит-тесты для своего кода.</p>
+</div>
+
+<h3 style="color: rgb(173, 191, 210);">Структура проекта:</h3>
+
+<pre style="background: rgb(31, 31, 31); border-radius: 8px; padding: 15px; border: 1px solid rgb(54, 54, 54);">
+your-repo-root/
+├── go.mod          # модуль Go (go-humanize v1.0.1)
+├── go.sum          # контрольные суммы зависимостей
+├── main.go         # реализация FormatBytes, FormatNumber, main()
+└── main_test.go    # ваши тесты (package main)</pre>
+
+<h2 id="requirements" style="color: rgb(173, 191, 210); margin-top: 30px;">Требования (строго по автотестам)</h2>
+
+<div style="background: rgb(36, 36, 36); border: 1px solid rgb(135, 34, 34); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<h4 style="color: rgb(229, 153, 153); margin-top: 0px;">Файлы (обязательны)</h4>
+
+<ul>
+	<li><code>go.mod</code> с зависимостью <code>github.com/dustin/go-humanize v1.0.1</code></li>
+	<li><code>go.sum</code></li>
+	<li><code>main.go</code> с <code>package main</code> и импортом <code>go-humanize</code></li>
+	<li><code>main_test.go</code> с как минимум одной функцией <code>func Test...</code></li>
+</ul>
+
+<h4 style="color: rgb(229, 153, 153); margin-top: 15px;">Функции в main.go</h4>
+
+<ul>
+	<li><strong>FormatBytes(b uint64) string</strong> &mdash; возвращает количество байт в человекочитаемом виде (SI-единицы: kB, MB, GB). Внутри функции необходимо вызывать <code>humanize.Bytes()</code>.</li>
+	<li><strong>FormatNumber(n int) string</strong> &mdash; возвращает число с разделителями тысяч (запятая). Внутри функции необходимо вызывать <code>humanize.Comma()</code>.</li>
+</ul>
+
+<h4 style="color: rgb(229, 153, 153); margin-top: 15px;">Примеры работы функций</h4>
+
+<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(31, 31, 31); padding: 10px; border-radius: 4px;">
+FormatBytes(0)          // &quot;0 B&quot;
+FormatBytes(1024)       // &quot;1.0 kB&quot;
+FormatBytes(1073741824) // &quot;1.1 GB&quot;
+
+FormatNumber(100)       // &quot;100&quot;
+FormatNumber(1000)      // &quot;1,000&quot;
+FormatNumber(1000000)   // &quot;1,000,000&quot;
+FormatNumber(-5000)     // &quot;-5,000&quot;</pre>
+
+<h4 style="color: rgb(229, 153, 153); margin-top: 15px;">main()</h4>
+
+<p>Функция <code>main()</code> должна демонстрировать обе функции. Вывод должен содержать строки <code>1.0 kB</code>, <code>1.1 GB</code> и <code>1,000,000</code>.</p>
+
+<h4 style="color: rgb(229, 153, 153); margin-top: 15px;">Тесты</h4>
+
+<ul>
+	<li>Файл <code>main_test.go</code> должен содержать функции <code>TestFormatBytes(t *testing.T)</code> и <code>TestFormatNumber(t *testing.T)</code> (именно с такими именами).</li>
+	<li>Ваши тесты должны проходить (<code>go test -v .</code>).</li>
+</ul>
+</div>
+
+<h2 id="steps" style="color: rgb(173, 191, 210); margin-top: 30px;">Шаги выполнения</h2>
+
+<div style="background: rgb(31, 31, 31); border: 1px solid rgb(43, 43, 43); border-radius: 8px; padding: 20px; margin: 15px 0px;">
+<ol>
+	<li><strong>Инициализируйте модуль</strong> (если ещё нет):
+
+	<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(54, 54, 54); border-radius: 4px;">
+go mod init &lt;ваш_модуль&gt;</pre>
+	</li>
+	<li><strong>Установите библиотеку конкретной версии</strong>:
+	<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(54, 54, 54); border-radius: 4px;">
+go get github.com/dustin/go-humanize@v1.0.1</pre>
+
+	<div style="background: rgb(41, 41, 41); border: 1px solid rgb(34, 89, 135); border-radius: 8px; padding: 12px; margin: 10px 0px;"><strong>Зачем <code>@v1.0.1</code>?</strong> Указание конкретной версии (пиннинг) гарантирует, что у всех студентов и в CI будет одна и та же версия библиотеки. Без версии Go установит последнюю, которая может измениться. Откройте <code>go.mod</code> после установки &mdash; вы увидите <code>require github.com/dustin/go-humanize v1.0.1</code>.</div>
+	</li>
+	<li><strong>Создайте <code>main.go</code></strong> с двумя функциями:
+	<ul>
+		<li><code>FormatBytes(b uint64) string</code> &mdash; используйте <code>humanize.Bytes(b)</code></li>
+		<li><code>FormatNumber(n int) string</code> &mdash; используйте <code>humanize.Comma(int64(n))</code></li>
+	</ul>
+
+	<p>В <code>main()</code> продемонстрируйте обе функции: выведите результаты для нескольких входных значений.</p>
+	</li>
+	<li><strong>Напишите тесты в <code>main_test.go</code></strong>:
+	<ul>
+		<li>Объявите <code>package main</code>.</li>
+		<li>Импортируйте <code>&quot;testing&quot;</code>.</li>
+		<li>Напишите <code>TestFormatBytes(t *testing.T)</code> &mdash; проверьте хотя бы 2 случая.</li>
+		<li>Напишите <code>TestFormatNumber(t *testing.T)</code> &mdash; проверьте хотя бы 2 случая.</li>
+	</ul>
+
+	<p><strong>Пример структуры теста:</strong></p>
+
+	<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(54, 54, 54); border-radius: 4px;">
+package main
+
+import &quot;testing&quot;
+
+func TestFormatBytes(t *testing.T) {
+    got := FormatBytes(1024)
+    if got != &quot;1.0 kB&quot; {
+        t.Errorf(&quot;FormatBytes(1024) = %q, want %q&quot;, got, &quot;1.0 kB&quot;)
+    }
+}</pre>
+	</li>
+	<li><strong>Синхронизируйте зависимости</strong>:
+	<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(54, 54, 54); border-radius: 4px;">
+go mod tidy</pre>
+	</li>
+</ol>
+</div>
+
+<h2 id="example" style="color: rgb(173, 191, 210); margin-top: 30px;">Пример вывода</h2>
+
+<div style="background: rgb(48, 48, 48); border: 1px solid rgb(67, 163, 153); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(64, 119, 116); border-radius: 4px;">
+$ go run .
+1024 bytes = 1.0 kB
+1073741824 bytes = 1.1 GB
+1000000 &rarr; 1,000,000</pre>
+
+<p style="margin-top: 10px;"><strong>Примечание:</strong> формат вывода <code>main()</code> свободный. Автотесты проверяют наличие подстрок <code>1.0 kB</code>, <code>1.1 GB</code> и <code>1,000,000</code> в совокупном выводе.</p>
+</div>
+
+<h2 id="testing" style="color: rgb(173, 191, 210); margin-top: 30px;">Тестирование</h2>
+
+<div style="background: rgb(31, 31, 31); border: 1px solid rgb(43, 43, 43); border-radius: 8px; padding: 20px; margin: 15px 0px;">
+<h4 style="margin-top: 0px; color: rgb(186, 191, 197);">Команды для локальной проверки:</h4>
+
+<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(54, 54, 54); border-radius: 4px;">
+go mod tidy
+go test -v .
+go run .</pre>
+
+<p style="margin-top: 10px;"><code>go test -v .</code> должен показать <code>PASS</code> &mdash; это значит, что ваши тесты работают. Автопроверка дополнительно запускает скрытые тесты для <code>FormatBytes</code> и <code>FormatNumber</code> на расширенном наборе входных данных.</p>
+</div>
+
+<h2 id="compat" style="color: rgb(173, 191, 210); margin-top: 30px;">Совместимость с Go</h2>
+
+<p style="background: rgb(41, 41, 41); border: 1px solid rgb(34, 89, 135); border-radius: 8px; padding: 12px 15px; margin: 20px 0px;"><strong>Go 1.22</strong>: используйте директиву <code>go 1.22</code> в <code>go.mod</code>. Зависимость: <code>github.com/dustin/go-humanize v1.0.1</code>.</p>
+
+<h2 id="submission" style="color: rgb(173, 191, 210); margin-top: 30px;">📤 Порядок сдачи</h2>
+
+<div style="background: rgb(41, 41, 41); border: 1px solid rgb(34, 89, 135); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<ol>
+	<li><code>git switch -c task/humanize-format</code></li>
+	<li>Реализуйте решение.</li>
+	<li>Проверьте локально:
+	<pre style="margin: 10px 0px; font-family: monospace; white-space: pre; overflow-x: auto; background: rgb(28, 28, 33); padding: 10px; border: 1px solid rgb(24, 65, 98); border-radius: 4px;">
+go mod tidy
+go test -v .
+go run .</pre>
+	</li>
+	<li><code>git add go.mod go.sum main.go main_test.go</code> &rarr; <code>git commit -m &quot;feat: humanize format with tests&quot;</code> &rarr; <code>git push origin task/humanize-format</code></li>
+</ol>
+</div>
+
+<h2 id="mistakes" style="color: rgb(173, 191, 210); margin-top: 30px;">Частые ошибки</h2>
+
+<div style="background: rgb(36, 36, 36); border: 1px solid rgb(135, 34, 34); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<ul>
+	<li><strong>Забыли <code>@v1.0.1</code></strong> при <code>go get</code>. Без версии будет установлена последняя &mdash; в данном случае это та же версия, но привычка пиннить версии важна.</li>
+	<li><strong>Путаница <code>int</code> / <code>int64</code></strong>. Функция <code>humanize.Comma</code> принимает <code>int64</code>, а <code>FormatNumber</code> принимает <code>int</code>. Нужно привести тип: <code>humanize.Comma(int64(n))</code>.</li>
+	<li><strong>Тест в неправильном пакете.</strong> <code>main_test.go</code> должен начинаться с <code>package main</code>, а не <code>package humanize</code> или чего-то другого.</li>
+	<li><strong>Нет <code>go.sum</code> в коммите.</strong> Файл <code>go.sum</code> генерируется автоматически при <code>go mod tidy</code> и должен быть в репозитории.</li>
+</ul>
+</div>
+
+<div id="checklist" style="background: rgb(41, 41, 41); border: 2px solid rgb(76, 174, 79); border-radius: 8px; padding: 15px; margin: 20px 0px;">
+<h4 style="color: rgb(162, 221, 165); margin-top: 0px;">✅ Чек-лист перед отправкой</h4>
+
+<ul>
+	<li>☐ <code>go.mod</code> содержит <code>github.com/dustin/go-humanize</code></li>
+	<li>☐ <code>go.sum</code> существует</li>
+	<li>☐ <code>main.go</code> импортирует <code>go-humanize</code></li>
+	<li>☐ Функция <code>FormatBytes</code> работает корректно</li>
+	<li>☐ Функция <code>FormatNumber</code> работает корректно</li>
+	<li>☐ <code>main_test.go</code> содержит тесты для обеих функций</li>
+	<li>☐ <code>go test -v .</code> проходит</li>
+	<li>☐ <code>go run .</code> выводит результаты с <code>1.0 kB</code>, <code>1.1 GB</code>, <code>1,000,000</code></li>
+</ul>
+</div>
+</div>
+</div>
+<style id="night-eye-overrides" type="text/css">@media screen {}
+</style>
