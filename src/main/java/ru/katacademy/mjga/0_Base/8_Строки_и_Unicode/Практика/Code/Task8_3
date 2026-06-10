@@ -8,7 +8,7 @@ public class Task8_3 {
     public void test1_reversesCodePoints() {
         check("abc", "cba");
         check("Привет", "тевирП");
-        check("Java🚀", "🚀avaJ");
+        check("Java\uD83D\uDE80", "\uD83D\uDE80avaJ");
         check("", "");
     }
 

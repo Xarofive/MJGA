@@ -12,7 +12,7 @@ public class Task8_1 {
         check("", new int[]{0, 0});
         check("Hello", new int[]{5, 5});
         check("Привет", new int[]{12, 6});
-        check("Java🚀", new int[]{8, 5});
+        check("Java\uD83D\uDE80", new int[]{8, 5});
     }
 
     private void check(String s, int[] expected) {

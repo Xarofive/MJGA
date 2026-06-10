@@ -7,7 +7,7 @@ public class Task8_2 {
     @Test
     public void test1_extractsSubstringByCodePoints() {
         check("Hello, World!", 7, 5, "World");
-        check("Hello😊世界", 5, 3, "😊世界");
+        check("Hello\uD83D\uDE0A世界", 5, 3, "\uD83D\uDE0A世界");
         check("Привет", 3, 10, "вет");
         check("Test", 2, 0, "");
     }
